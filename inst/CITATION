@@ -1,0 +1,21 @@
+citEntry(
+  entry = "Article",
+  title = "Model-based clustering with sparse covariance matrices",
+  author = personList(person(given="Michael", family="Fop"),
+                      person(given=c("Thomas", "Brendan"), family="Murphy"),
+                      person(given="Luca", family="Scrucca")),
+  journal = "{S}tatistics and {C}omputing",
+  year = "2018",
+  volume = "",
+  number = "",
+  pages = "",
+  notes = "To appear",
+  url="https://arxiv.org/abs/1711.07748",
+  #
+  textVersion =
+  paste("Fop, M., Murphy, T.B., and Scrucca, L. (2018).",
+        "Model-based clustering with sparse covariance matrices.",
+        "Statistics and Computing.",
+        "To appear.")
+)
+

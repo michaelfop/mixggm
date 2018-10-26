@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1540580492806.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "239463556",
+    "id" : "F7A241CD",
+    "lastKnownWriteTime" : 1540580714,
+    "last_content_update" : 1540580714676,
+    "path" : "~/Dropbox/Work/R_packages/mixggm_package/mixggm/R/zzz.R",
+    "project_path" : "R/zzz.R",
+    "properties" : {
+        "cursorPosition" : "19,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

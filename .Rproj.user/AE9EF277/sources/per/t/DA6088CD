@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1540456322153.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "822631819",
+    "id" : "DA6088CD",
+    "lastKnownWriteTime" : 1540456369,
+    "last_content_update" : 1540456369507,
+    "path" : "~/Dropbox/Work/R_packages/mggm_package/mggm/src/conggm.cpp",
+    "project_path" : "src/conggm.cpp",
+    "properties" : {
+        "cursorPosition" : "74,39",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "cpp"
+}

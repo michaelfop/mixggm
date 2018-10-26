@@ -1,0 +1,28 @@
+Package: mggm
+Version: 1.0
+Date: 2018-10-12
+Title: Mixtures of Gaussian Graphical Models
+Description: Mixtures of Gaussian graphical models for model-based clustering with sparse covariance and concentration matrices.
+Authors@R: c(person("Michael", "Fop", role = c("aut", "cre"), 
+                    email = "michael.fop@ucd.ie",
+                    comment = c(ORCID = "0000-0003-3936-2757")),
+             person("Luca", "Scrucca", role = "ctb",
+                    comment = c(ORCID = "0000-0003-3826-0484")),
+             person("Thomas Brendan", "Murphy", role = "ctb",
+                    comment = c(ORCID = "0000-0002-5668-7046")))
+Maintainer: Michael Fop <michael.fop@ucd.ie>
+Depends: R (>= 3.3)
+Imports: foreach,
+         GA (>= 3.1),
+         mclust (>= 5.4),
+         memoise,
+         network,
+         Rcpp
+LinkingTo: Rcpp, RcppArmadillo
+License: GPL (>= 2)
+Repository: CRAN
+URL: https://github.com/michaelfop/mggm
+BugReports: https://github.com/michaelfop/mggm/issues
+ByteCompile: true
+LazyLoad: yes
+NeedsCompilation: yes

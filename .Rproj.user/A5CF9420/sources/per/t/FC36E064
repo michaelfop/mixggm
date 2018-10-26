@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1540580219730.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3115803473",
+    "id" : "FC36E064",
+    "lastKnownWriteTime" : 1540225724,
+    "last_content_update" : 1540225724,
+    "path" : "~/Dropbox/Work/R_packages/mixggm_package/mixggm/man/control-parameters.Rd",
+    "project_path" : "man/control-parameters.Rd",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_doc"
+}

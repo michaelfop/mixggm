@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1540456372733.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2746911167",
+    "id" : "A4D77F41",
+    "lastKnownWriteTime" : 1540456385,
+    "last_content_update" : 1540456385633,
+    "path" : "~/Dropbox/Work/R_packages/mggm_package/mggm/src/icf.cpp",
+    "project_path" : "src/icf.cpp",
+    "properties" : {
+        "cursorPosition" : "96,39",
+        "scrollLine" : "83"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "cpp"
+}

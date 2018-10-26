@@ -1,0 +1,21 @@
+useDynLib(mixggm)
+# exportPattern("^[[:alpha:]]+")
+## this line is automatically created when using package.skeleton but should be removed
+## to prevent the _loop functions from exporting. Instead use the export() function (as is done here
+importFrom(Rcpp, evalCpp)
+
+export(fitGGM, mixGGM, searchGGM)
+export(plot.fitGGM, plot.mixGGM)
+export(ctrlSTEP, ctrlGA, ctrlEM, ctrlICF, ctrlREG)
+
+S3method("plot", "mixGGM")
+S3method("print", "mixGGM")
+S3method("plot", "fitGGM")
+S3method("print", "fitGGM")
+
+importFrom("grDevices", "adjustcolor")
+importFrom("graphics", "abline", "image", "par", "plot")
+importFrom("stats", "cov", "cov2cor", "median", "toeplitz", "var")
+importFrom("utils", "combn", "setTxtProgressBar", "txtProgressBar")
+importFrom("utils", "packageVersion")
+importFrom("mclust", "hcVVV")

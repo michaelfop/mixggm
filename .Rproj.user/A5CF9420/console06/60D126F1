@@ -1,0 +1,158 @@
+]0;/home/michael/Dropbox/Work/R_packages/mggm_package/mggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$ [K]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$ git fetch --all
+Fetching origin
+fatal: cannot run rpostback-askpass: No such file or directory
+Username for 'https://github.com': michaelfop
+fatal: cannot run rpostback-askpass: No such file or directory
+Password for 'https://michaelfop@github.com': 
+]0;/home/michael/Dropbox/Work/R_packages/mggm_package/mggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$ git reset --hard origin/master
+HEAD is now at 41f6b38 fix README.md
+]0;/home/michael/Dropbox/Work/R_packages/mggm_package/mggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$  echo 1C93E642 && /usr/bin/env && echo 259C83D
+1C93E642
+R_PDFVIEWER=/usr/bin/xdg-open
+CLUTTER_IM_MODULE=xim
+R_RD4PDF=times,inconsolata,hyper
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+LD_LIBRARY_PATH=/usr/lib/R/lib::/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/default-java/jre/lib/amd64/server
+RS_RPOSTBACK_PATH=/usr/lib/rstudio/bin/rpostback
+LESSCLOSE=/usr/bin/lesspipe %s %s
+XDG_MENU_PREFIX=gnome-
+R_SHARE_DIR=/usr/share/R/share
+LANG=en_IE.UTF-8
+HISTCONTROL=ignoreboth
+DISPLAY=:0
+OLDPWD=/home/michael/Dropbox/Work/R_packages/mggm_package
+RS_PPM_FD_READ=12
+TAR=/bin/tar
+GNOME_SHELL_SESSION_MODE=ubuntu
+EDITOR=vi
+R_BROWSER=xdg-open
+GTK2_MODULES=overlay-scrollbar
+R_DOC_DIR=/usr/share/R/doc
+R_SESSION_TMPDIR=/tmp/RtmpDComks
+LN_S=ln -s
+USERNAME=michael
+RSTUDIO_SESSION_ID=9E3E7347
+R_LIBS_USER=~/R/x86_64-pc-linux-gnu-library/3.4
+XDG_VTNR=2
+GIO_LAUNCHED_DESKTOP_FILE_PID=8870
+SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+RS_PPM_FD_WRITE=13
+MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path
+XDG_SESSION_ID=2
+R_INCLUDE_DIR=/usr/share/R/include
+USER=michael
+PAGER=/usr/bin/pager
+DESKTOP_SESSION=ubuntu
+QT4_IM_MODULE=xim
+TEXTDOMAINDIR=/usr/share/locale/
+RS_SHARED_SECRET=16816927778469308861804289383
+DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path
+QT_QPA_PLATFORMTHEME=appmenu-qt5
+PWD=/home/michael/Dropbox/Work/R_packages/mggm_package/mggm
+HOME=/home/michael
+TEXTDOMAIN=im-config
+SED=/bin/sed
+SSH_AGENT_PID=3911
+RSTUDIO_PANDOC=/usr/lib/rstudio/bin/pandoc
+R_PAPERSIZE=letter
+QT_ACCESSIBILITY=1
+XDG_SESSION_TYPE=x11
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/var/lib/snapd/desktop
+R_SYSTEM_ABI=linux,gcc,gxx,gfortran,?
+RSTUDIO=1
+R_ZIPCMD=/usr/bin/zip
+R_PAPERSIZE_USER=a4
+XDG_SESSION_DESKTOP=ubuntu
+CLICOLOR_FORCE=1
+R_HOME=/usr/lib/R
+GJS_DEBUG_OUTPUT=stderr
+R_BZIPCMD=/bin/bzip2
+GTK_MODULES=gail:atk-bridge
+RSTUDIO_USER_IDENTITY=michael
+RS_LOCAL_PEER=/tmp/30497-rsession
+RSTUDIO_SESSION_PORT=30497
+RMARKDOWN_MATHJAX_PATH=/usr/lib/rstudio/resources/mathjax-26
+WINDOWPATH=2
+TERM=xterm-256color
+SHELL=/bin/bash
+R_PRINTCMD=/usr/bin/lpr
+R_GZIPCMD=/bin/gzip -n
+QT_IM_MODULE=ibus
+XMODIFIERS=@im=ibus
+IM_CONFIG_PHASE=2
+RSTUDIO_TERM=60D126F1
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:0:1
+GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/rstudio.desktop
+RSTUDIO_WINUTILS=bin/winutils
+XDG_SEAT=seat0
+SHLVL=9
+LANGUAGE=en_IE:en
+PROMPT_COMMAND=echo -ne "\033]0;${PWD/#${HOME}/~}\007"
+R_PLATFORM=x86_64-pc-linux-gnu
+R_LIBS_SITE=/usr/local/lib/R/site-library:/usr/lib/R/site-lib^C
+]0;/home/michael/Dropbox/Work/R_packages/mggm_package/mggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$ git pull origin master
+fatal: cannot run rpostback-askpass: No such file or directory
+Username for 'https://github.com': michaelfop
+fatal: cannot run rpostback-askpass: No such file or directory
+Password for 'https://michaelfop@github.com': 
+From https://github.com/michaelfop/mixGGraph
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+]0;/home/michael/Dropbox/Work/R_packages/mggm_package/mggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$ git add --all
+]0;/home/michael/Dropbox/Work/R_packages/mggm_package/mggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$ git commit -m "up[K[KUpdated NAMESPACE with Impo[K[K[K[KimportFrom for function packageVersion"
+[master a180711] Updated NAMESPACE with importFrom for function packageVersion
+ 4 files changed, 38 insertions(+), 35 deletions(-)
+ create mode 100644 inst/NEWS
+]0;/home/michael/Dropbox/Work/R_packages/mggm_package/mggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$ git push -u origin master
+fatal: cannot run rpostback-askpass: No such file or directory
+Username for 'https://github.com': michaelfio  op
+fatal: cannot run rpostback-askpass: No such file or directory
+Password for 'https://michaelfop@github.com': 
+Counting objects: 8, done.
+Delta compression using up to 8 threads.
+Compressing objects:  14% (1/7)   Compressing objects:  28% (2/7)   Compressing objects:  42% (3/7)   Compressing objects:  57% (4/7)   Compressing objects:  71% (5/7)   Compressing objects:  85% (6/7)   Compressing objects: 100% (7/7)   Compressing objects: 100% (7/7), done.
+Writing objects:  12% (1/8)   Writing objects:  25% (2/8)   Writing objects:  37% (3/8)   Writing objects:  50% (4/8)   Writing objects:  62% (5/8)   Writing objects:  75% (6/8)   Writing objects:  87% (7/8)   Writing objects:  87% (7/8), 1.05 MiB | 1.25 MiB/s   Writing objects: 100% (8/8), 1.05 MiB | 1.25 MiB/s   Writing objects: 100% (8/8), 1.45 MiB | 1.40 MiB/s, done.
+Total 8 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/4)   [Kremote: Resolving deltas:  25% (1/4)   [Kremote: Resolving deltas:  50% (2/4)   [Kremote: Resolving deltas:  75% (3/4)   [Kremote: Resolving deltas: 100% (4/4)   [Kremote: Resolving deltas: 100% (4/4), completed with 4 local objects.[K
+remote: This repository moved. Please use the new location:[K
+remote:   https://github.com/michaelfop/mggm.git[K
+To https://github.com/michaelfop/mixGGraph.git
+   41f6b38..a180711  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ ls
+DESCRIPTION  [0m[01;34minst[0m  [01;34mman[0m  mixggm.Rproj  NAMESPACE  NEWS.md  [01;34mR[0m  README.md  [01;34msrc[0m
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git init
+Reinitialized existing Git repository in /home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/.git/
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ 
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git add .
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git commit -m "mixggm v[Kversion 1.0"
+[master edf8aaf] mixggm version 1.0
+ 24 files changed, 66 insertions(+), 77 deletions(-)
+ rewrite R/zzz.R (79%)
+ rename man/{mggm-package.Rd => mixggm-package.Rd} (93%)
+ rename mggm.Rproj => mixggm.Rproj (85%)
+ delete mode 100644 src/congraph.o
+ delete mode 100644 src/estep.o
+ rewrite src/estepmggm.o (76%)
+ delete mode 100755 src/mggm.so
+ delete mode 100755 src/mixGGraph.so
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git remote add origin https://github.com/michaelfop/mixggm.git
+fatal: remote origin already exists.
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git pus [Kh -u origin master
+fatal: cannot run rpostback-askpass: No such file or directory
+Username for 'https://github.com': michaelfop
+fatal: cannot run rpostback-askpass: No such file or directory
+Password for 'https://michaelfop@github.com': 
+remote: Repository not found.
+fatal: repository 'https://github.com/michaelfop/mixGGraph.git/' not found
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git push -u origin masterremote add origin https://github.com/michaelfop/mixggm.git
+fatal: remote origin already exists.
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git remote add origin https://github.com/michaelfop/mixggm.git[37Ppush -u origin masterremote add origin https://github.com/michaelfop/mixggm.git[28Pcommit -m "mixggm version 1.0"add .[K[1Pinit
+Initialized empty Git repository in /home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/.git/
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git initremote add origin https://github.com/michaelfop/mixggm.git[37Ppush -u origin masterremote add origin https://github.com/michaelfop/mixggm.git[28Pcommit -m "mixggm version 1.0"add .[K
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git add .[1Pinitremote add origin https://github.com/michaelfop/mixggm.git[37Ppush -u origin masterremote add origin https://github.com/michaelfop/mixggm.git
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ git remote add origin https://github.com/michaelfop/mixggm.gitadd .[K[1Pinitremote add origin https://github.com/michaelfop/mixggm.git[37Ppush -u origin master
+error: src refspec master does not match any.
+error: failed to push some refs to 'https://github.com/michaelfop/mixggm.git'
+]0;/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm]0;michael@michaelPC: ~/Dropbox/Work/R_packages/mixggm_package/mixggm[01;32mmichael@michaelPC[00m:[01;34m~/Dropbox/Work/R_packages/mixggm_package/mixggm[00m$ 

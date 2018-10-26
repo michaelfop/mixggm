@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1528753528476.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1727836173",
+    "id" : "1A74FBE",
+    "lastKnownWriteTime" : 1528753545,
+    "last_content_update" : 1528753545509,
+    "path" : "~/Dropbox/Work/R_packages/mixGGraph_package/mixGGraph/R/utils.R",
+    "project_path" : "R/utils.R",
+    "properties" : {
+        "cursorPosition" : "36,0",
+        "scrollLine" : "36"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

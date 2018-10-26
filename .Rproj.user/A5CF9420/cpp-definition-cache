@@ -1,0 +1,92 @@
+[
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/conggm.cpp",
+                "kind" : 6,
+                "line" : 9,
+                "name" : "conggm(arma::mat, arma::umat, int, double, int, bool)",
+                "parent_name" : "",
+                "usr" : "c:@F@conggm#$@N@arma@C@Mat>#d#$@N@arma@C@Mat>#i#I#d#I#b#"
+            }
+        ],
+        "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/conggm.cpp",
+        "file_last_write" : 1540456369
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/estepmggm.cpp",
+                "kind" : 6,
+                "line" : 10,
+                "name" : "estepmggm(arma::mat, arma::mat, arma::cube, arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@estepmggm#$@N@arma@C@Mat>#d#S0_#$@N@arma@C@Cube>#d#$@N@arma@C@Col>#d#"
+            }
+        ],
+        "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/estepmggm.cpp",
+        "file_last_write" : 1539516728
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/findspouse.cpp",
+                "kind" : 6,
+                "line" : 7,
+                "name" : "findspouse(arma::umat)",
+                "parent_name" : "",
+                "usr" : "c:@F@findspouse#$@N@arma@C@Mat>#i#"
+            }
+        ],
+        "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/findspouse.cpp",
+        "file_last_write" : 1539621289
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/icf.cpp",
+                "kind" : 6,
+                "line" : 8,
+                "name" : "icf(arma::mat, arma::mat, arma::umat, double, double, int, bool, bool, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@icf#$@N@arma@C@Mat>#d#S0_#$@N@arma@C@Mat>#i#d#d#I#b#b#d#"
+            }
+        ],
+        "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/icf.cpp",
+        "file_last_write" : 1540456385
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/profileloglik.cpp",
+                "kind" : 6,
+                "line" : 8,
+                "name" : "profileloglik(arma::mat, arma::mat, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@profileloglik#$@N@arma@C@Mat>#d#S0_#I#"
+            }
+        ],
+        "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/profileloglik.cpp",
+        "file_last_write" : 1539793153
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/zcalc.cpp",
+                "kind" : 6,
+                "line" : 7,
+                "name" : "zcalc(arma::mat)",
+                "parent_name" : "",
+                "usr" : "c:@F@zcalc#$@N@arma@C@Mat>#d#"
+            }
+        ],
+        "file" : "/home/michael/Dropbox/Work/R_packages/mixggm_package/mixggm/src/zcalc.cpp",
+        "file_last_write" : 1539620319
+    }
+]

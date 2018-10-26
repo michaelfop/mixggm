@@ -1,0 +1,6 @@
+# mggm 1.0
+
+* Initial release of `mixggm` package
+
+
+

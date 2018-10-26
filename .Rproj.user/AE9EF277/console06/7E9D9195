@@ -1,0 +1,40 @@
+git pull origin master
+fatal: cannot run rpostback-askpass: No such file or directory
+Username for 'https://github.com': michaelfop
+fatal: cannot run rpostback-askpass: No such file or directory
+Password for 'https://michaelfop@github.com': 
+remote: Enumerating objects: 53, done.[K
+remote: Counting objects:   2% (1/50)   [Kremote: Counting objects:   4% (2/50)   [Kremote: Counting objects:   6% (3/50)   [Kremote: Counting objects:   8% (4/50)   [Kremote: Counting objects:  10% (5/50)   [Kremote: Counting objects:  12% (6/50)   [Kremote: Counting objects:  14% (7/50)   [Kremote: Counting objects:  16% (8/50)   [Kremote: Counting objects:  18% (9/50)   [Kremote: Counting objects:  20% (10/50)   [Kremote: Counting objects:  22% (11/50)   [Kremote: Counting objects:  24% (12/50)   [Kremote: Counting objects:  26% (13/50)   [Kremote: Counting objects:  28% (14/50)   [Kremote: Counting objects:  30% (15/50)   [Kremote: Counting objects:  32% (16/50)   [Kremote: Counting objects:  34% (17/50)   [Kremote: Counting objects:  36% (18/50)   [Kremote: Counting objects:  38% (19/50)   [Kremote: Counting objects:  40% (20/50)   [Kremote: Counting objects:  42% (21/50)   [Kremote: Counting objects:  44% (22/50)   [Kremote: Counting objects:  46% (23/50)   [Kremote: Counting objects:  48% (24/50)   [Kremote: Counting objects:  50% (25/50)   [Kremote: Counting objects:  52% (26/50)   [Kremote: Counting objects:  54% (27/50)   [Kremote: Counting objects:  56% (28/50)   [Kremote: Counting objects:  58% (29/50)   [Kremote: Counting objects:  60% (30/50)   [Kremote: Counting objects:  62% (31/50)   [Kremote: Counting objects:  64% (32/50)   [Kremote: Counting objects:  66% (33/50)   [Kremote: Counting objects:  68% (34/50)   [Kremote: Counting objects:  70% (35/50)   [Kremote: Counting objects:  72% (36/50)   [Kremote: Counting objects:  74% (37/50)   [Kremote: Counting objects:  76% (38/50)   [Kremote: Counting objects:  78% (39/50)   [Kremote: Counting objects:  80% (40/50)   [Kremote: Counting objects:  82% (41/50)   [Kremote: Counting objects:  84% (42/50)   [Kremote: Counting objects:  86% (43/50)   [Kremote: Counting objects:  88% (44/50)   [Kremote: Counting objects:  90% (45/50)   [Kremote: Counting objects:  92% (46/50)   [Kremote: Counting objects:  94% (47/50)   [Kremote: Counting objects:  96% (48/50)   [Kremote: Counting objects:  98% (49/50)   [Kremote: Counting objects: 100% (50/50)   [Kremote: Counting objects: 100% (50/50), done.[K
+remote: Compressing objects:   9% (1/11)   [Kremote: Compressing objects:  18% (2/11)   [Kremote: Compressing objects:  27% (3/11)   [Kremote: Compressing objects:  36% (4/11)   [Kremote: Compressing objects:  45% (5/11)   [Kremote: Compressing objects:  54% (6/11)   [Kremote: Compressing objects:  63% (7/11)   [Kremote: Compressing objects:  72% (8/11)   [Kremote: Compressing objects:  81% (9/11)   [Kremote: Compressing objects:  90% (10/11)   [Kremote: Compressing objects: 100% (11/11)   [Kremote: Compressing objects: 100% (11/11), done.[K
+Unpacking objects:   3% (1/30)   Unpacking objects:   6% (2/30)   Unpacking objects:  10% (3/30)   Unpacking objects:  13% (4/30)   Unpacking objects:  16% (5/30)   Unpacking objects:  20% (6/30)   Unpacking objects:  23% (7/30)   Unpacking objects:  26% (8/30)   Unpacking objects:  30% (9/30)   Unpacking objects:  33% (10/30)   Unpacking objects:  36% (11/30)   Unpacking objects:  40% (12/30)   remote: Total 30 (delta 17), reused 30 (delta 17), pack-reused 0[K
+Unpacking objects:  43% (13/30)   Unpacking objects:  46% (14/30)   Unpacking objects:  50% (15/30)   Unpacking objects:  53% (16/30)   Unpacking objects:  56% (17/30)   Unpacking objects:  60% (18/30)   Unpacking objects:  63% (19/30)   Unpacking objects:  66% (20/30)   Unpacking objects:  70% (21/30)   Unpacking objects:  73% (22/30)   Unpacking objects:  76% (23/30)   Unpacking objects:  80% (24/30)   Unpacking objects:  83% (25/30)   Unpacking objects:  86% (26/30)   Unpacking objects:  90% (27/30)   Unpacking objects:  93% (28/30)   Unpacking objects:  96% (29/30)   Unpacking objects: 100% (30/30)   Unpacking objects: 100% (30/30), done.
+From https://github.com/michaelfop/mixGGraph
+ * branch            master     -> FETCH_HEAD
+   7e357dc..41f6b38  master     -> origin/master
+Updating 7e357dc..41f6b38
+error: Your local changes to the following files would be overwritten by merge:
+	.Rproj.user/A5CF9420/console06/INDEX001
+	.Rproj.user/A5CF9420/cpp-complilation-config
+	.Rproj.user/A5CF9420/cpp-definition-cache
+	.Rproj.user/A5CF9420/pcs/files-pane.pper
+	.Rproj.user/A5CF9420/pcs/source-pane.pper
+	.Rproj.user/A5CF9420/pcs/windowlayoutstate.pper
+	.Rproj.user/A5CF9420/persistent-state
+	.Rproj.user/AE9EF277/console06/7E9D9195
+	.Rproj.user/AE9EF277/console06/INDEX001
+	.Rproj.user/AE9EF277/cpp-complilation-config
+	.Rproj.user/AE9EF277/cpp-definition-cache
+	.Rproj.user/AE9EF277/pcs/files-pane.pper
+	.Rproj.user/AE9EF277/pcs/source-pane.pper
+	.Rproj.user/AE9EF277/pcs/windowlayoutstate.pper
+	.Rproj.user/AE9EF277/pcs/workbench-pane.pper
+	.Rproj.user/AE9EF277/persistent-state
+	.Rproj.user/AE9EF277/sources/prop/394FC8B6
+	.Rproj.user/AE9EF277/sources/prop/F03BCEA2
+	.Rproj.user/AE9EF277/sources/prop/F6EA0414
+	.Rproj.user/AE9EF277/sources/prop/INDEX
+	.Rproj.user/shared/notebooks/paths
+	src/mggm.so
+Please commit your changes or stash them before you merge.
+Aborting
+]0;/home/michael/Dropbox/Work/R_packages/mggm_package/mggm]0;michael@latitude: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@latitude[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$ [K]0;michael@latitude: ~/Dropbox/Work/R_packages/mggm_package/mggm[01;32mmichael@latitude[00m:[01;34m~/Dropbox/Work/R_packages/mggm_package/mggm[00m$ 

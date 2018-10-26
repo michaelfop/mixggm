@@ -1,0 +1,16 @@
+.Rproj.user
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+
+src/*.o
+src/*.so
+src/*.dll
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+**/.DS_Store

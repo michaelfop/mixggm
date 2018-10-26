@@ -1,0 +1,72 @@
+#
+#=============================== Utility functions
+#
+
+
+ctrlICF <- function(tol = 1e-04, maxIt = 1e3, trace = FALSE)
+  # icf parameters
+{
+  list( tol = tol, maxIt = maxIt, trace = trace )
+}
+
+
+ctrlREG <- function(x, K, scaleType = c("full", "diag", "fixed"), ...)
+  # hyperparameters for Bayesian regularization
+{
+  temp <- list(...)
+  V <- ncol(x)
+  N <- nrow(x)
+  st <- match.arg( scaleType, c("full", "diag", "fixed") )
+
+  if ( is.null(temp$omega) ) omega <- V + 2 else omega <- temp$omega
+  if ( is.null(temp$scale) ) {
+    VAR <- var(x)*(N-1)/N
+    if ( N > V ) {
+      scale <- switch( st,
+                       full = VAR/( K^(2/V) ),
+                       diag = diag( diag(VAR)/( K^(2/V) ) ),
+                       fixed = VAR/det(VAR)^(1/V) * (0.001/K)^(1/V)
+      )
+    } else {
+      scale <- diag( diag(VAR)/( K^(2/V) ) )
+    }
+  } else scale <- temp$scale
+  out <- list(omega = omega, scale = scale)
+  return(out)
+}
+
+
+ctrlEM <- function(tol = 1e-05, itMax = 1e02, inSubset = NULL, trace = TRUE, printMsg = FALSE)
+  # EM control parameters
+{
+  list(tol = tol, itMax = itMax, inSubset = inSubset, trace = trace, printMsg = printMsg)
+}
+
+
+ctrlGA <- function(popSize = 50, pcrossover = 0.8, pmutation = 0.2,
+                   maxiter = 100, run = maxiter/2,
+                   elitism = base::max(1, round(popSize*0.05)),
+                   monitor = FALSE)
+  # GA search parameters
+{
+  list( popSize = popSize, pcrossover = pcrossover, pmutation = pmutation,
+        maxiter = maxiter, run = run, elitism = elitism, monitor = monitor)
+}
+
+
+ctrlSTEP <- function(trace = FALSE, start = NULL, occamAdd = Inf, occamRem = Inf)
+  # stepwise search parameters
+{
+  list(trace = trace, start = start, occamAdd = occamAdd, occamRem = occamRem)
+}
+
+
+profileLogLik <- function(Sigma, S, N)
+  # Compute Gaussian profile log-likelihood
+{
+  V <- unique( c(dim(S), dim(Sigma)) )
+  if ( length(V) > 1 ) stop("Wrong input parameters!")
+  -N/2*determinant(Sigma)$modulus - N/2*sum( diag(solve(Sigma) %*% S) )
+  # -N/2*log( det(Sigma) ) - N/2*sum( diag(solve(Sigma) %*% S) )
+  # -N/2*log( det(Sigma) ) - N/2*V
+}
