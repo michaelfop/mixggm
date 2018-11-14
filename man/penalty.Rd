@@ -61,7 +61,6 @@ mod2 <- searchGGM(x, model = "covariance",
                   penalty = "erdos")
 plot(mod2, "adjacency")
 
-}
 
 # user defined penalty function
 data(iris)
@@ -79,6 +78,8 @@ myPenalty <- function(graph, beta)
 mod3 <- mixGGM(x, K = 3, model = "covariance",
               penalty = myPenalty, beta = 2*V*log(N))
 plot(mod3)
+
+}
 
 }
 

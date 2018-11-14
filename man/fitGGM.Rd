@@ -79,6 +79,7 @@ Bayesian regularization is performed by means of a conjugate prior on the covari
 
 
 \examples{
+
 # Gaussian covariance graph model
 data(mtcars)
 x <- mtcars[,c(1,3:7)]

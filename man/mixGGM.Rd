@@ -104,6 +104,13 @@ Arguments \code{penalty} and \code{search} are used to define the type of penalt
 
 \examples{
 
+# fit a mixture of concentration graph models
+data(iris)
+mod1 <- mixGGM(iris[,-5], model = "concentration")
+plot(mod1, what = "graph")
+plot(mod1, what = "classification")
+
+
 \dontrun{
 
 # a simple simulated data example
@@ -115,21 +122,13 @@ class <- rep(1:2, Nk)
 sigma1 <- diag(2)                          # independent variables
 sigma2 <- matrix( c(1,0.9,0.9,1), 2,2 )    # correlated variables
 mu1 <- c(0, 0)
-mu2 <- c(2, 2)
+mu2 <- c(2, 3)
 x <- rbind( MASS::mvrnorm(Nk[1], mu1, sigma1),
             MASS::mvrnorm(Nk[2], mu2, sigma2)
 )
-mod1 <- mixGGM(x)
-plot(mod1)
-plot(mod1, what = "classification")
-
-
-# fit a mixture of concentration graph models
-data(iris)
-mod2 <- mixGGM(iris[,-5], model = "concentration")
-plot(mod2, what = "graph")
+mod2 <- mixGGM(x)
+plot(mod2)
 plot(mod2, what = "classification")
-
 
 # fit a mixture of covariance graph models
 data(wine, package = "gclus")

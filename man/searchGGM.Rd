@@ -112,6 +112,7 @@ mod3$graph
 mod3$omega
 plot(mod3)
 
+\dontrun{
 
 # generate data from a Markov model
 N <- 1000
@@ -122,6 +123,7 @@ for ( j in 2:V ) dat[,j] <- dat[,j-1] + rnorm(N, sd = 0.5)
 mod4 <- searchGGM(data = dat, model = "concentration")        # recover the model
 plot(mod4, what = "adjacency")
 
+}
 }
 
 
