@@ -18,12 +18,16 @@ Imports: foreach,
          memoise,
          network,
          Rcpp
+Suggests: MASS, knitr (>= 1.2)
 LinkingTo: Rcpp, RcppArmadillo
+VignetteBuilder: knitr
 License: GPL (>= 2)
 Repository: CRAN
 URL: https://github.com/michaelfop/mixggm
 BugReports: https://github.com/michaelfop/mixggm/issues
 ByteCompile: true
-LazyLoad: yes
 NeedsCompilation: yes
+LazyData: yes
+Encoding: UTF-8
 RoxygenNote: 6.1.1
+
