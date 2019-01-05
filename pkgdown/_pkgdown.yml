@@ -1,0 +1,41 @@
+# pkgdown definition file <http://pkgdown.r-lib.org>
+#
+# Install:
+# install.packages("pkgdown")
+#
+# Usage:
+# pkgdown::build_site()
+# 
+
+title: mixgmm
+
+url: https://mclust-org.github.io/mixgmm
+
+template:
+  params:
+    bootswatch: cosmo
+
+navbar:
+  left:
+    - text: "Vignette"
+      href: articles/mixgmm.html
+    - text: "Reference"
+      href: reference/index.html
+    - text: "News"
+      href: news/index.html
+  right:
+    - text: "mclust-org"
+      icon: fa-home
+      href: https://mclust-org.github.io
+
+figures:
+  dev: grDevices::png
+  dpi: 72
+  dev.args: []
+  fig.ext: png
+  fig.width: 7
+  fig.height: 6
+
+authors:
+  Luca Scrucca:
+    href: http://www.stat.unipg.it/luca

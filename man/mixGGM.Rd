@@ -19,7 +19,7 @@ mixGGM(data, K = 1:3,
        ctrlIcf = ctrlICF(),
        keepAll = FALSE,
        parallel = FALSE,
-       verbose = TRUE)}
+       verbose = interactive())}
 
 \arguments{
 \item{data}{A dataframe or matrix, where rows correspond to observations and columns to variables. Categorical variables are not allowed.}
@@ -102,6 +102,11 @@ Variables associated to two non-adjacent edges in the graph are conditionally in
 Arguments \code{penalty} and \code{search} are used to define the type of penalty on the graph configuration and the structure search method in the structural-EM algorithm. The penalization term depends on the hyperparameter \code{beta} according to the type of penalty function. See \code{\link{searchGGM}} and \code{\link{penalty}} for more details.
 }
 
+\references{
+Fop, M., Murphy, T.B., and Scrucca, L. (2018) Model-based clustering with sparse covariance matrices. **Statistics and Computing**. 
+URL: https://doi.org/10.1007/s11222-018-9838-y
+}
+
 \examples{
 
 # fit a mixture of concentration graph models
@@ -166,9 +171,4 @@ mod4$bic
 
 }
 
-}
-
-
-\references{
-Fop, M., Murphy, T.B., and Scrucca, L. (2018). Model-based clustering with sparse covariance matrices. \emph{Statistics and Computing}. To appear.
 }

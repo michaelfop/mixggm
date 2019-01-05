@@ -12,7 +12,7 @@ mixGGM <- function( data, K = 1:3,
                     ctrlEm = ctrlEM(), ctrlStep = ctrlSTEP(), ctrlGa = ctrlGA(), ctrlIcf = ctrlICF(),
                     keepAll = FALSE,
                     parallel = FALSE,
-                    verbose = TRUE )
+                    verbose = interactive() )
   # Automatic model selection usin BIC
 {
   varnames <- colnames(data)

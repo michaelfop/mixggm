@@ -1,9 +1,9 @@
-# mixggm - Mixtures of Gaussian Graphical Models
+# mixggm
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/mixggm)](https://cran.r-project.org/package=mixggm)
 [![CRAN\_MonthlyDownloads](http://cranlogs.r-pkg.org/badges/mixggm)](https://cran.r-project.org/package=mixggm)
 
-An R package for fitting mixtures of Gaussian graphical models for model-based clustering with sparse covariance and concentration matrices.
+An [R](https://www.r-project.org/) package implementing *Mixtures of Gaussian Graphical Models* for model-based clustering with sparse covariance and concentration matrices.
 
 ## Installation
 
@@ -24,3 +24,7 @@ devtools::install_github("michaelfop/mixggm")
 
 See `help(mixGGM)`.
 
+## References
+
+Fop, M., Murphy, T.B., and Scrucca, L. (2018) Model-based clustering with sparse covariance matrices. **Statistics and Computing**. 
+URL: https://doi.org/10.1007/s11222-018-9838-y
