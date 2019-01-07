@@ -1,8 +1,9 @@
 # mggm 1.0.1 (NOT ON CRAN)
 
-* Add website via pkgdown
-* Add vignette
-* Small fixes
+* Added website via pkgdown.
+* Added package vignette.
+* Small fixes.
+* Added routine registration for C++ code.
 
 # mggm 1.0
 

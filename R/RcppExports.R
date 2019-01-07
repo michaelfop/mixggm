@@ -2,18 +2,18 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 conggm <- function(S, graph, N, tol, maxit, traceOut) {
-    .Call('_mixggm_conggm', PACKAGE = 'mixggm', S, graph, N, tol, maxit, traceOut)
+    .Call(`_mixggm_conggm`, S, graph, N, tol, maxit, traceOut)
 }
 
 estepmggm <- function(x, mu, sigma, pro) {
-    .Call('_mixggm_estepmggm', PACKAGE = 'mixggm', x, mu, sigma, pro)
+    .Call(`_mixggm_estepmggm`, x, mu, sigma, pro)
 }
 
 icf <- function(Sigma, S, graph, N, tol, maxit, traceOut, regularize, psi) {
-    .Call('_mixggm_icf', PACKAGE = 'mixggm', Sigma, S, graph, N, tol, maxit, traceOut, regularize, psi)
+    .Call(`_mixggm_icf`, Sigma, S, graph, N, tol, maxit, traceOut, regularize, psi)
 }
 
 profileloglik <- function(Sigma, S, N) {
-    .Call('_mixggm_profileloglik', PACKAGE = 'mixggm', Sigma, S, N)
+    .Call(`_mixggm_profileloglik`, Sigma, S, N)
 }
 

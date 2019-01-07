@@ -41,10 +41,10 @@ Rcpp::List icf ( arma::mat Sigma,
   // outputs and initialization
   double loglik, llkPrev;
   bool crit = true;
-  double err;
+  double err = 0.0;
   int it = 0;
-  double val;
-  double sign;
+  double val = 0.0;
+  double sign = 0.0;
   arma::mat SigmaPrev = Sigma;
   log_det(val, sign, SigmaPrev);
   arma::mat invPrev = inv_sympd(SigmaPrev);

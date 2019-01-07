@@ -4,10 +4,11 @@ using namespace Rcpp;
 using namespace std;
 
 // [[Rcpp::depends(RcppArmadillo)]]
+
 // [[Rcpp::export]]
 Rcpp::List profileloglik(arma::mat Sigma, arma::mat S, int N)
 {
-  int V = Sigma.n_rows;
+  // int V = Sigma.n_rows;
 
   arma::mat inv = inv_sympd(Sigma);
   double val;

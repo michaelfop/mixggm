@@ -32,10 +32,10 @@ Rcpp::List conggm(arma::mat S,
   // algorithm for estimation ---------------------------------------
   double loglik;
   bool crit = true;
-  double err;
+  double err = 0.0;
   int it = 0;
-  double val;
-  double sign;
+  double val = 0.0;
+  double sign = 0.0;
   arma::mat WPrev = W;
   log_det(val, sign, WPrev);
   arma::mat invPrev = inv_sympd(WPrev);

@@ -9,7 +9,7 @@ output:
 vignette: >
   %\VignetteIndexEntry{A quick tour of mixggm}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteDepends{MASS, mclust}
+  %\VignetteDepends{MASS, mclust, gclus, devtools}
   %\VignetteEncoding{UTF-8}
 ---
 

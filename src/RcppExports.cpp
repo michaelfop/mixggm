@@ -68,16 +68,3 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-
-static const R_CallMethodDef CallEntries[] = {
-    {"_mixggm_conggm", (DL_FUNC) &_mixggm_conggm, 6},
-    {"_mixggm_estepmggm", (DL_FUNC) &_mixggm_estepmggm, 4},
-    {"_mixggm_icf", (DL_FUNC) &_mixggm_icf, 9},
-    {"_mixggm_profileloglik", (DL_FUNC) &_mixggm_profileloglik, 3},
-    {NULL, NULL, 0}
-};
-
-RcppExport void R_init_mixggm(DllInfo *dll) {
-    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
-    R_useDynamicSymbols(dll, FALSE);
-}

@@ -15,7 +15,9 @@ Rcpp::List estepmggm(arma::mat x,
   int N = x.n_rows;
   int K = mu.n_rows;
   int V = mu.n_cols;
-  double llk, loghood, m;
+  double llk = 0.0;
+  double loghood = 0.0;
+  double m = 0.0;
 
   arma::mat dens(N,K), denspro(N,K), z(N,K);
   for ( int k = 0; k < K; k++ ) {
@@ -30,7 +32,7 @@ Rcpp::List estepmggm(arma::mat x,
       denspro(i,k) = dens(i,k) + std::log(pro(k));
 
       if ( k == (K-1) ) {
-        double m = max( denspro.row(i) );
+        m = max( denspro.row(i) );
         loghood = m + std::log( sum( exp(denspro.row(i) - m) ) );
         llk += loghood;
         z.row(i) = exp( denspro.row(i) - loghood );

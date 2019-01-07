@@ -1,4 +1,4 @@
-useDynLib(mixggm)
+useDynLib(mixggm, .registration = TRUE)
 # exportPattern("^[[:alpha:]]+")
 ## this line is automatically created when using package.skeleton but should be removed
 ## to prevent the _loop functions from exporting. Instead use the export() function (as is done here
