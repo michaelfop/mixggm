@@ -3,43 +3,49 @@
 #
 #
 
-mixGGM <- function( data, K = 1:3,
-                    model = c("covariance", "concentration"),
-                    search = c("step-forw", "step-back","ga"),
-                    penalty = c("bic", "ebic", "erdos", "power"),
-                    beta = NULL,
-                    regularize = FALSE, regHyperPar = NULL,
-                    ctrlEm = ctrlEM(), ctrlStep = ctrlSTEP(), ctrlGa = ctrlGA(), ctrlIcf = ctrlICF(),
-                    keepAll = FALSE,
-                    parallel = FALSE,
-                    verbose = interactive() )
-  # Automatic model selection usin BIC
+mixGGM <- function(data, K = 1:3,
+                   model = c("covariance", "concentration"),
+                   search = c("step-forw", "step-back","ga"),
+                   penalty = c("bic", "ebic", "erdos", "power"),
+                   beta = NULL,
+                   regularize = FALSE, 
+                   regHyperPar = NULL,
+                   ctrlEM = controlEM(), 
+                   ctrlSTEP = controlSTEP(), 
+                   ctrlGA = controlGA(), 
+                   ctrlICF = controlICF(),
+                   keepAll = FALSE,
+                   parallel = FALSE,
+                   verbose = interactive() )
 {
-  varnames <- colnames(data)
-  N <- nrow(data)
-  V <- ncol(data)
+  call <- match.call()
   data <- data.matrix(data)
-  model <- match.arg( model, c("covariance", "concentration") )
-  search <- match.arg( search,  c("step-forw", "step-back","ga") )
-  # penalty <- match.arg( penalty, c("bic", "ebic", "erdos", "power") )
+  model   <- match.arg(model, choices = eval(formals(mixGGM)$model))
+  search  <- match.arg(search, choices = eval(formals(mixGGM)$search))
+  penalty <- match.arg(penalty, choices = eval(formals(mixGGM)$penalty))
   penalty <- graphPenalty(penalty)
-  if ( is.null(varnames) ) {
+  
+  varnames <- colnames(data)
+  if(is.null(varnames)) 
+  {
     varnames <- paste0("V", 1:V)
     colnames(data) <- varnames
   }
+  N <- nrow(data)
+  V <- ncol(data)
 
   # start parallel computations--------------------------------------
   if ( parallel | is.numeric(parallel) ) {
     parallel <- GA::startParallel(parallel)
     class(parallel) <- "cluster"
-    # inherits(ctrlGa$parallel, "cluster")
+    # inherits(ctrlGA$parallel, "cluster")
   }
   on.exit( if ( parallel ) parallel::stopCluster(attr(parallel, "cluster")) )
   #-------------------------------------------------------------------------
 
   # initialize EM algorithm
-  if ( !is.null(ctrlEm$subset) ) {
-    hcInit <- mclust::hc(data[ctrlEm$subset,], modelName = "VVV", use = "VARS")
+  if ( !is.null(ctrlEM$subset) ) {
+    hcInit <- mclust::hc(data[ctrlEM$subset,], modelName = "VVV", use = "VARS")
   } else hcInit <- mclust::hc(data, modelName = "VVV", use = "VARS")
 
   res <- list()
@@ -56,10 +62,10 @@ mixGGM <- function( data, K = 1:3,
     temp <- try( emMixGGM(data, K = k, model = model, search = search,
                           penalty = penalty, beta = beta,
                           regularize = regularize, regHyperPar = regHyperPar,
-                          ctrlGa = ctrlGa, ctrlStep = ctrlStep,
-                          ctrlEm = ctrlEm, ctrlIcf = ctrlIcf,
+                          ctrlGA = ctrlGA, ctrlSTEP = ctrlSTEP,
+                          ctrlEM = ctrlEM, ctrlICF = ctrlICF,
                           hcInit = hcInit, parallel = parallel),
-                 silent = !ctrlEm$printMsg )
+                 silent = !ctrlEM$printMsg )
     if ( class(temp) == "try.error" | is.na(temp$loglik) ) {
       res[[i]] <- temp
       BIC[i] <- NA
@@ -101,27 +107,131 @@ mixGGM <- function( data, K = 1:3,
   }
 
   # out <- out[c(1,2,16,5,3,4,6:9,13,12,10,11,15,14)]
-  out <- out[ c(1:11, 14,13,15, 17,12,16)]
+  # out <- out[ c(1:11, 14,13,15, 17,12,16)]
+  out <- out[c(15,17,16,12,13,3,4,6,7,8,14,5,9,1,2,10,11)]
   out$keepAll <- if ( keepAll ) res else NULL
-  out <- structure( out, control = list(EM = ctrlEm, STEP = ctrlStep, GA = ctrlGa, ICF = ctrlIcf) )
+
+  out <- c(call = call, out)
+  out$control <- list(EM = ctrlEM, 
+                      STEP = ctrlSTEP, 
+                      GA = ctrlGA, 
+                      ICF = ctrlICF)
   class(out) <- "mixGGM"
   return(out)
 }
 
-
 print.mixGGM <- function(x, ...)
 {
-  cat("\n")
-  txt <- paste(" ", "Mixture of Gaussian", x$model, "graph models", "\n")
-  cat(txt)
-  sep <- paste0(rep("=", max(nchar(txt)) + 1),
-                collapse = "")
-  cat(sep, "\n")
-  cat( paste0("  ", "K = ", x$K, "\n") )
-  cat( paste0("  ", "N. dependence parameters: ", x$nPar[1], "\n") )
-  cat( paste0("  ", "Log-likelihood: ", round(x$loglik, 2), "\n") )
-  cat( paste0("  Penalized log-likelihood: ", round(x$loglikPen, 2), "\n") )
-  cat( paste0("  Penalty: ", x$penalty, "\n") )
-  cat( paste0("  Search: ", x$search, "\n") )
+  if(!is.null(cl <- x$call))
+  { 
+    cat("Call:\n")
+    dput(cl, control = NULL)
+  }
+  cat("\n'mixGGM' object containing:","\n")
+  print(names(x)[-1])
+  invisible()
 }
 
+# print.mixGGM <- function(x, ...)
+# {
+#   cat("\n")
+#   txt <- paste(" ", "Mixture of Gaussian", x$model, "graph models", "\n")
+#   cat(txt)
+#   sep <- paste0(rep("=", max(nchar(txt)) + 1),
+#                 collapse = "")
+#   cat(sep, "\n")
+#   cat( paste0("  ", "K = ", x$K, "\n") )
+#   cat( paste0("  ", "N. dependence parameters: ", x$nPar[1], "\n") )
+#   cat( paste0("  ", "Log-likelihood: ", round(x$loglik, 2), "\n") )
+#   cat( paste0("  Penalized log-likelihood: ", round(x$loglikPen, 2), "\n") )
+#   cat( paste0("  Penalty: ", x$penalty, "\n") )
+#   cat( paste0("  Search: ", x$search, "\n") )
+# }
+
+summary.mixGGM <- function(object, 
+                           graphs = TRUE, 
+                           clusters = FALSE,
+                           parameters = FALSE,
+                           ...)
+{
+  out <- object[c("model", "penalty", "search", "N", "V", 
+                  "loglik", "loglikPen", "loglikReg",
+                  "K", "nPar", "bic", "graph", "parameters")]
+  out$regularize <- (object$loglik != object$loglikReg)
+  out$printGraphs <- graphs
+  out$printClusters <- clusters
+  out$printParameters <- parameters
+  out$tabClassification <- table(factor(object$classification))
+  out$search <- switch(out$search,
+                       "step-forw" = "forward-stepwise",
+                       "step-back" = "backward-stepwise",
+                       "ga" = "genetic algorithm")
+  out$penalty <- if(is.character(out$penalty)) out$penalty else "user defined"
+  class(out) <- "summary.mixGGM"
+  return(out)
+}
+
+print.summary.mixGGM <- function(x, digits = getOption("digits"), ...)
+{
+  cat(cli::rule(left = crayon::bold("Mixture of Gaussian graphical models"), 
+                width = min(getOption("width"),60)), "\n\n")
+  #
+  cat(paste("Data dimensions =", x$N, "x", x$V, "\n"))
+  cat(paste("Model           =", x$model, "\n"))
+  cat(paste("Search          =", x$search, "\n"))
+  cat(paste("Penalty         =", x$penalty, "\n\n"))
+  #
+  tab <- data.frame("l" = if(x$regularize) x$loglikReg else x$loglik,
+                    "Pen. log-likelihood" = x$loglikPen, 
+                    "df" = x$nPar[2], "BIC" = x$bic, 
+                    row.names = "", check.names = FALSE)
+  colnames(tab)[1] <- if(x$regularize) "Reg. log-likelihood" else "Log-likelihood"
+  print(tab, digits = digits)
+  #
+  if(x$printGraphs)
+  {
+    cat("\nGraphs:\n") 
+    for(k in 1:x$K)
+    { 
+      cat("[,,", k, "]", sep = "")
+      g <- as.data.frame(x$graph[,,k])
+      colnames(g) <- rep("", ncol(g))
+      # print(ifelse(g == 0, ".", "*"), quote = FALSE)
+      print(ifelse(g == 0, cli::symbol$circle, cli::symbol$circle_filled), quote = FALSE)
+      # 
+    }
+  }
+  #
+  if(x$printClusters)
+  { 
+    cat("\nClustering table:")
+    print(x$tabClassification, digits = digits)
+  }
+  #
+  if(x$printParameters)
+  { 
+    cat("\nMixing probabilities:\n")
+    print(x$parameters$tau, digits = digits)
+    cat("\nMeans:\n")
+    print(x$parameters$mu, digits = digits)
+    if(x$model == "covariance") 
+    { 
+      cat("\nCovariances:\n") 
+      for(k in 1:x$K)
+      { 
+        cat("[,,", k, "]\n", sep = "")
+        print(x$parameters$sigma[,,k], digits = digits)
+      }
+    } else 
+    {
+      cat("\nConcentrations:\n")
+      for(k in 1:x$K)
+      { 
+        cat("[,,", k, "]\n", sep = "")
+        print(x$parameters$omega[,,k], digits = digits)
+      }
+    }
+  }
+  #
+  invisible()
+}

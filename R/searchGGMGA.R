@@ -31,7 +31,7 @@ fitnessGGM <- function(string, par)
 
   # fit covariance graph --------------------------------------------
   fit <- fitGGM(data = NULL, graph = adjMat, S = par$S, N = par$Nk, model = par$model, start = start,
-                ctrlIcf = par$ctrlIcf, regularize = par$regularize, regHyperPar = par$regHyperPar)
+                ctrlICF = par$ctrlICF, regularize = par$regularize, regHyperPar = par$regHyperPar)
   #------------------------------------------------------------------
 
   # compute criterion -----------------------------------------------
@@ -47,7 +47,7 @@ searchGGMGA <- function(S, N, model = c("covariance", "concentration"),
                         pro = NULL, start = NULL,
                         regularize = FALSE, regHyperPar = NULL,
                         penalty = graphPenalty(), beta = NULL,
-                        ctrlGa = ctrlGA(), ctrlIcf = ctrlICF(),
+                        ctrlGA = controlGA(), ctrlICF = controlICF(),
                         parallel = FALSE, verbose = FALSE)
   # Function for searching the best structure of a graph using genetic algorithms.
 {
@@ -103,7 +103,7 @@ searchGGMGA <- function(S, N, model = c("covariance", "concentration"),
   # parameters list
   par <- list(N = N, Nk = Nk, V = V, S = S, pro = pro, allPairs = allPairs,
               penalty = penalty, beta = beta, model = model,
-              regularize = regularize, regHyperPar = regHyperPar, ctrlIcf = ctrlIcf)
+              regularize = regularize, regHyperPar = regHyperPar, ctrlICF = ctrlICF)
 
   # memoise fitness function
   mfitness <- memoise::memoise(fitnessGGM)
@@ -113,8 +113,8 @@ searchGGMGA <- function(S, N, model = c("covariance", "concentration"),
                nBits = nPairs,
                names = allCn,
                suggestions = suggestions,
-               popSize = ctrlGa$popSize, pcrossover = ctrlGa$pcrossover, pmutation = ctrlGa$pmutation,
-               maxiter = ctrlGa$maxiter, run = ctrlGa$run, elitism = ctrlGa$elitism,
+               popSize = ctrlGA$popSize, pcrossover = ctrlGA$pcrossover, pmutation = ctrlGA$pmutation,
+               maxiter = ctrlGA$maxiter, run = ctrlGA$run, elitism = ctrlGA$elitism,
                parallel = parallel, monitor = verbose
   )
 
@@ -139,7 +139,7 @@ searchGGMGA <- function(S, N, model = c("covariance", "concentration"),
 
   dimnames(graph) <- list(varnames, varnames)
   fit <- fitGGM(data = NULL, graph = graph, S = S, N = Nk, model = model, regularize = regularize,
-                regHyperPar = regHyperPar, ctrlIcf = ctrlIcf, start = start)
+                regHyperPar = regHyperPar, ctrlICF = ctrlICF, start = start)
   #------------------------------------------------------------------------
 
   out <- list(sigma = fit$sigma,

@@ -3,16 +3,16 @@
 #
 #
 
-emMixGGM <- function( data, K, search = c("step-forw", "step-back","ga"),
+emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
                       model = c("covariance", "concentration"),
                       penalty = graphPenalty(),
                       beta = NULL,
                       regularize = FALSE,
                       regHyperPar = NULL,
-                      ctrlEm = ctrlEM(),
-                      ctrlStep = ctrlSTEP(),
-                      ctrlGa = ctrlGA(),
-                      ctrlIcf = ctrlICF(),
+                      ctrlEM = controlEM(),
+                      ctrlSTEP = controlSTEP(),
+                      ctrlGA = controlGA(),
+                      ctrlICF = controlICF(),
                       hcInit = NULL,
                       parallel = FALSE,
                       verbose = FALSE )
@@ -27,7 +27,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back","ga"),
   if ( regularize ) {
     scaleType <- attr(regularize, "scaleType")
     scaleType <- if ( is.null(scaleType) ) "full" else scaleType
-    if ( is.null(regHyperPar) ) regHyperPar <- ctrlREG(data, K, scaleType = scaleType)
+    if ( is.null(regHyperPar) ) regHyperPar <- controlREG(data, K, scaleType = scaleType)
     class(regHyperPar) <- "EM"
   }
   #------------------------------------------------------------------
@@ -46,10 +46,10 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back","ga"),
   # EM initialization -----------------------------------------------
   if ( is.null(hcInit) ) {
     # function not called from mixGGraph
-    if ( !is.null( ctrlEm$subset ) ) {            # initialize from subset of data
-      hcInit <- mclust::hc(data[ctrlEm$subset,], modelName = "VVV", use = "VARS")
+    if ( !is.null( ctrlEM$subset ) ) {            # initialize from subset of data
+      hcInit <- mclust::hc(data[ctrlEM$subset,], modelName = "VVV", use = "VARS")
       z <- mclust::unmap( mclust::hclass(hcInit, K) )
-      ms <- mclust::mstep(modelName = "VVV", z = z, data = data[ctrlEm$subset,])
+      ms <- mclust::mstep(modelName = "VVV", z = z, data = data[ctrlEM$subset,])
       es <- do.call( "estep", c(list(data = data), ms) )
       z <- es$z
     } else {
@@ -58,9 +58,9 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back","ga"),
     }
   } else {
     # function called from mixGGraph
-    if ( !is.null(ctrlEm$subset) ) {             # initialize from subset of data
+    if ( !is.null(ctrlEM$subset) ) {             # initialize from subset of data
       z <- mclust::unmap( mclust::hclass(hcInit, K) )
-      ms <- mclust::mstep(modelName = "VVV", z = z, data = data[ctrlEm$subset,])
+      ms <- mclust::mstep(modelName = "VVV", z = z, data = data[ctrlEM$subset,])
       es <- do.call( "estep", c(list(data = data), ms) )
       z <- es$z
     } else {
@@ -73,25 +73,25 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back","ga"),
   if ( any( table(mclust::map(z)) <= V ) ) {
     if ( !regularize ) regularize <- TRUE
     if ( is.null(regHyperPar) ) {
-      regHyperPar <- ctrlREG(data, K)
+      regHyperPar <- controlREG(data, K)
       class(regHyperPar) <- "EM"
     }
   }
   #-------------------------------------------------------------------------
 
   # EM and starting parameters ---------------------------------------------
-  tol <- ctrlEm$tol
-  itMax <- ctrlEm$maxiter
+  tol <- ctrlEM$tol
+  itMax <- ctrlEM$maxiter
   #
   iter <- 0
   loglikPrev <- -.Machine$integer.max/2
   loglikPenPrev <- -.Machine$integer.max/2
   err <- .Machine$double.xmax/2
-  if ( is.null(ctrlStep$start) ) {
+  if ( is.null(ctrlSTEP$start) ) {
     firstIt <- TRUE
-    ctrlStep$start <- 0
+    ctrlSTEP$start <- 0
   } else firstIt <- FALSE    # if start matrix is given
-  Start <- array( ctrlStep$start, c(V,V,K) )
+  Start <- array( ctrlSTEP$start, c(V,V,K) )
   occam <- rep( list(list(TOADD = NULL, TODROP = NULL)), K )
   critOut <- rep(NA, K)
   crit <- TRUE
@@ -131,27 +131,27 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back","ga"),
                       searchGGMStepwise_f(S = Sj, N = N, model = model, pro = Nj/N, start = START,
                                                  penalty = penalty, beta = beta,
                                                  regularize = regularize, regHyperPar = regHyperPar,
-                                                 ctrlStep = ctrlStep, ctrlIcf = ctrlIcf, parallel = parallel,
+                                                 ctrlSTEP = ctrlSTEP, ctrlICF = ctrlICF, parallel = parallel,
                                                  verbose = FALSE,
                                                  occam = occam[[j]]),
-                      silent = ctrlEm$printMsg),
+                      silent = ctrlEM$printMsg),
                     #
                     "step-back" = try(
                       searchGGMStepwise_b(S = Sj, N = N, model = model, pro = Nj/N, start = START,
                                                  penalty = penalty, beta = beta,
                                                  regularize = regularize, regHyperPar = regHyperPar,
-                                                 ctrlStep = ctrlStep, ctrlIcf = ctrlIcf, parallel = parallel,
+                                                 ctrlSTEP = ctrlSTEP, ctrlICF = ctrlICF, parallel = parallel,
                                                  verbose = FALSE,
                                                  occam = occam[[j]]),
-                      silent = !ctrlEm$printMsg),
+                      silent = !ctrlEM$printMsg),
                     #
                     "ga" = try(
                       searchGGMGA(S = Sj, N = N, model = model, pro = Nj/N, start = START,
                                          penalty = penalty, beta = beta,
                                          regularize = regularize, regHyperPar = regHyperPar,
-                                         ctrlGa = ctrlGa, ctrlIcf = ctrlIcf, parallel = parallel,
+                                         ctrlGA = ctrlGA, ctrlICF = ctrlICF, parallel = parallel,
                                          verbose = FALSE),
-                      silent = !ctrlEm$printMsg)
+                      silent = !ctrlEM$printMsg)
       )
 
       if ( class(out) == "try-error" ) {
@@ -244,7 +244,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back","ga"),
         Sj <- temp$S[,,j]
       }
       tmp <- fitGGM( data = NULL, graph = graph[,,j], S = Sj, model = model, N = Nj,
-                     ctrlIcf = ctrlIcf, regularize = regularize, regHyperPar = regHyperPar )
+                     ctrlICF = ctrlICF, regularize = regularize, regHyperPar = regHyperPar )
       sigma[,,j] <- tmp$sigma
       omega[,,j] <- tmp$omega
     }
@@ -256,10 +256,15 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back","ga"),
   dimnames(mu) <- list(varnames, 1:K)
   dimnames(sigma) <- dimnames(omega) <- dimnames(graph) <- list(varnames, varnames)
   totPar <- V*K + V*K + nCov + (K-1)
-  out <- list( parameters = list(tau = pro, mu = mu, sigma = sigma, omega = omega), graph = graph,
-               N = N, V = V, K = K, loglik = loglik, loglikPen = loglikPen, loglikReg = llk,
-               nPar = c(depPar = sum(nCov), totPar = totPar), z = z, classification = mclust::map(z),
-               penalty = attr(penalty, "type") )
-  attr(out, "info") <- list(iter = iter, control = ctrlEm[1:2], search = search)
+  out <- list(parameters = list(tau = pro, mu = mu, sigma = sigma, omega = omega), 
+              graph = graph,
+              N = N, V = V, K = K, 
+              loglik = loglik, loglikPen = loglikPen, loglikReg = llk,
+              nPar = c(depPar = sum(nCov), totPar = totPar), 
+              z = z, classification = mclust::map(z),
+              penalty = attr(penalty, "type") )
+  attr(out, "info") <- list(iter = iter, 
+                            control = ctrlEM[1:2], 
+                            search = search)
   return(out)
 }

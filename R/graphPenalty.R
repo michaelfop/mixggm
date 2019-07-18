@@ -3,14 +3,15 @@
 #
 
 
-graphPenalty <- function( penalty = c("bic", "ebic", "erdos", "power") )
+graphPenalty <- function(penalty = c("bic", "ebic", "erdos", "power"), ...)
   # Set the penalty to be used for graph search.
   # If the penalty is user-defined, it must be component separable
 {
-  if ( is.character(penalty) ) {
-    penalty <- match.arg( penalty, c("bic", "ebic", "erdos", "power") )
+  if ( is.character(penalty) ) 
+  {
+    penalty <- match.arg(penalty, choices = eval(formals(graphPenalty)$penalty))
     penFun <- switch(penalty,
-                     bic = function(graph, beta = NULL)
+                     bic = function(graph, beta = NULL, n, ...) # TODO: LS
                        # BIC type penalty
                      {
                        NN <- get("N", envir = parent.frame())

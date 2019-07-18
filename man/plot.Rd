@@ -1,4 +1,4 @@
-\name{plotting-functionalities}
+\name{plot.fitGGM}
 \alias{plot.fitGGM}
 \alias{plot.mixGGM}
 
@@ -9,13 +9,14 @@ Plotting functionalities for objects of class \code{fitGGM} or \code{mixGGM}.
 }
 
 \usage{
-\method{plot}{fitGGM}(x, what = c("graph", "adjacency"),
-    layout = c("circle", "random"), ...)
-
-\method{plot}{mixGGM}(x, what = c("graph", "classification", "adjacency", "common"),
+\method{plot}{mixGGM}(x, what = c("graphs", "classification", "adjacency", "common"),
     layout = c("circle", "random"),
-    colors = NULL, symb = NULL, dimens = NULL, ...)
+    col = mclust::mclust.options("classPlotColors"), 
+    pch = mclust::mclust.options("classPlotSymbols"), 
+    dimens = NULL, \dots)
 
+\method{plot}{fitGGM}(x, what = c("graphs", "adjacency"),
+    layout = c("circle", "random"), \dots)
 }
 
 \arguments{
@@ -25,13 +26,13 @@ Plotting functionalities for objects of class \code{fitGGM} or \code{mixGGM}.
 
 \item{layout}{Layout of the graph, either circular (default) or random.}
 
-\item{colors}{A vector of user defined colors}
+\item{col}{A vector of colors to be used in plotting.}
 
-\item{symb}{A vector of user defined symbols}
+\item{pch}{A vector of symbols to be used in plotting.}
 
 \item{dimens}{A vector giving the integer dimensions of the desired variables for multivariate data in case of \code{what = "classification"}.}
 
-\item{...}{Other arguments.}
+\item{\dots}{Further arguments passed to or from other methods.}
 }
 
 \details{
@@ -39,12 +40,11 @@ These functions are used to visualize graph association structures and clusterin
 
 In the case of \code{what = "graph"}, the graph of a Gaussian covariance graph model is bi-directed, while the graph of a Gaussian concentration model is un-directed. Thickness of the edges is proportional to the estimated association parameters.
 
-See "Examples" for various cases.
+See "Examples" section for various cases.
 }
 
 
 \examples{
-
 # covariance graph
 data(mtcars)
 x <- mtcars[,c(1,3:7)]

@@ -1,7 +1,7 @@
 \name{mixGGM}
 \alias{mixGGM}
-\alias{print.mixGGM}
-\title{Mixture of Gaussian graphical models}
+
+\title{Mixture of Gaussian Graphical Models}
 
 \description{
 Estimation of a mixture of Gaussian covariance or concentration graph models using structural-EM algorithm. The mixture model returned is the optimal model according to BIC.
@@ -13,10 +13,12 @@ mixGGM(data, K = 1:3,
        search = c("step-forw", "step-back", "ga"),
        penalty = c("bic", "ebic", "erdos", "power"),
        beta = NULL,
-       regularize = FALSE, regHyperPar = NULL,
-       ctrlEm = ctrlEM(),
-       ctrlStep = ctrlSTEP(), ctrlGa = ctrlGA(),
-       ctrlIcf = ctrlICF(),
+       regularize = FALSE, 
+       regHyperPar = NULL,
+       ctrlEM = controlEM(),
+       ctrlSTEP = controlSTEP(), 
+       ctrlGA = controlGA(),
+       ctrlICF = controlICF(),
        keepAll = FALSE,
        parallel = FALSE,
        verbose = interactive())}
@@ -36,12 +38,15 @@ mixGGM(data, K = 1:3,
 
 \item{regularize}{A logical argument indicating if Bayesian regularization should be performed. Default to \code{FALSE}. Used only when \code{model = "covariance"}.}
 
-\item{regHyperPar}{A list of hyper parameters for Bayesian regularization. Only used when\cr \code{regularization = TRUE}; see also \code{\link{ctrlREG}}.}
+\item{regHyperPar}{A list of hyper parameters for Bayesian regularization. Only used when \code{regularization = TRUE}; see also \code{\link{controlREG}}.}
 
-\item{ctrlEm}{A list of control parameters used in the structural-EM algorithm; see also \code{\link{ctrlEM}}.}
-\item{ctrlStep}{A list of control parameters used in the stepwise search; see also \code{\link{ctrlSTEP}}.}
-\item{ctrlGa}{A list of control parameters for the genetic algorithm; see also \code{\link{ctrlGA}}.}
-\item{ctrlIcf}{A list of control parameters employed in the algorithm for estimation of graphical model parameters; see also \code{\link{ctrlICF}}.}
+\item{ctrlEM}{A list of control parameters used in the structural-EM algorithm; see also \code{\link{controlEM}}.}
+
+\item{ctrlSTEP}{A list of control parameters used in the stepwise search; see also \code{\link{controlSTEP}}.}
+
+\item{ctrlGA}{A list of control parameters for the genetic algorithm; see also \code{\link{controlGA}}.}
+
+\item{ctrlICF}{A list of control parameters employed in the algorithm for estimation of graphical model parameters; see also \code{\link{controlICF}}.}
 
 \item{keepAll}{A logical argument. If \code{TRUE}, also all the mixture models estimated for the values of \code{K} given in input are returned}
 
@@ -103,7 +108,7 @@ Arguments \code{penalty} and \code{search} are used to define the type of penalt
 }
 
 \references{
-Fop, M., Murphy, T.B., and Scrucca, L. (2018) Model-based clustering with sparse covariance matrices. **Statistics and Computing**. 
+Fop, M., Murphy, T.B., and Scrucca, L. (2019) Model-based clustering with sparse covariance matrices. **Statistics and Computing**, 29:4, 791–819.
 URL: https://doi.org/10.1007/s11222-018-9838-y
 }
 

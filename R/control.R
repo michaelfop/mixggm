@@ -3,14 +3,14 @@
 #
 
 
-ctrlICF <- function(tol = 1e-04, maxiter = 1e03)
+controlICF <- function(tol = 1e-04, maxiter = 1e03)
   # icf parameters
 {
   list( tol = tol, itMax = maxiter )
 }
 
 
-ctrlREG <- function(data, K,
+controlREG <- function(data, K,
                     scaleType = c("full", "fixed", "one", "diag"),
                     scale = NULL, psi = NULL)
   # hyperparameters for Bayesian regularization
@@ -38,14 +38,14 @@ ctrlREG <- function(data, K,
 }
 
 
-ctrlEM <- function(tol = 1e-05, maxiter = 1e02, subset = NULL, printMsg = FALSE)
+controlEM <- function(tol = 1e-05, maxiter = 1e02, subset = NULL, printMsg = FALSE)
   # EM control parameters
 {
   list(tol = tol, maxiter = maxiter, subset = subset, printMsg = printMsg)
 }
 
 
-ctrlGA <- function(popSize = 50, pcrossover = 0.8, pmutation = 0.1,
+controlGA <- function(popSize = 50, pcrossover = 0.8, pmutation = 0.1,
                    maxiter = 100, run = maxiter/2,
                    elitism = base::max(1, round(popSize*0.05)))
   # GA search parameters
@@ -55,7 +55,7 @@ ctrlGA <- function(popSize = 50, pcrossover = 0.8, pmutation = 0.1,
 }
 
 
-ctrlSTEP <- function(occamAdd = Inf, occamRem = Inf, start = NULL)
+controlSTEP <- function(occamAdd = Inf, occamRem = Inf, start = NULL)
   # stepwise search parameters
 {
   list(occamAdd = occamAdd, occamRem = occamRem, start = start)

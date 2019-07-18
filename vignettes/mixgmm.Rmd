@@ -2,7 +2,7 @@
 title: "A quick tour of mixggm"
 author: "Luca Scrucca, Michael Fop, T. Brendan Murphy"
 date: "`r format(Sys.time(), '%d %b %Y')`"
-output: 
+output:
   rmarkdown::html_vignette:
     toc: true
     css: "vignette.css"
@@ -49,8 +49,24 @@ cat(mixggm:::mixggmStartupMessage(), sep="")
 ```{r}
 data(iris)
 mod <- mixGGM(iris[,-5], model = "concentration")
+summary(mod)
+summary(mod, graphs = TRUE, clusters = TRUE, parameters = TRUE)
+```
+
+```{r, fig.width=8, fig.height=4}
 plot(mod, what = "graph")
+```
+
+```{r, fig.width=8, fig.height=4, out.width="80%"}
+plot(mod, what = "adjacency")
+```
+
+```{r}
 plot(mod, what = "classification")
+```
+
+```{r}
+plot(mod, what = "common")
 ```
 
 ## A complex simulated data example
@@ -82,9 +98,16 @@ save(mod, file = "vignettes/simcomplex.Rdata")
 
 ```{r, echo=-1}
 load(file = "simcomplex.Rdata")
-mod
-plot(mod, what = "classification", dimens = c(1,5,10,15,20) )
+summary(mod)
+```
+
+```{r}
+plot(mod, what = "classification", dimens = c(1,5,10,15,20))
+```
+```{r, fig.width=8, fig.height=4}
 plot(mod, what = "graph")
+```
+```{r, fig.width=8, fig.height=4, out.width="80%"}
 plot(mod, what = "adjacency")
 table(class, mod$classification)
 ```
@@ -103,19 +126,18 @@ save(mod, file = "vignettes/wine.Rdata")
 ```
 ```{r, echo=-1}
 load(file = "wine.Rdata")
-mod
-mod$parameters$tau
-mod$parameters$mu
-mod$parameters$sigma
+summary(mod, graphs = TRUE)
 ```
 
 ```{r}
 plot(mod, what = "graph")
-plot(mod, what = "adjacency")
-plot(mod, what = "classification", dimens = 1:4)
 ```
 
+```{r, fig.width=8, fig.height=4, out.width="80%"}
+plot(mod, what = "adjacency")
+```
 ```{r}
+plot(mod, what = "classification", dimens = 1:4)
 table(wine$Class, mod$classification)
 mclust::adjustedRandIndex(wine$Class, mod$classification)
 ```
@@ -136,18 +158,21 @@ x <- rbind(MASS::mvrnorm(Nk[1], mu1, sigma1),
            MASS::mvrnorm(Nk[2], mu2, sigma2))
 colnames(x) <- paste0("x", 1:ncol(x))
 mod <- mixGGM(x, model = "covariance")
-mod
+summary(mod, graphs = TRUE, parameters = TRUE)
 ```
-```{r}
+```{r, fig.width=8, fig.height=4, out.width="80%"}
 plot(mod, what = "graph")
+```
+```{r, fig.width=8, fig.height=4, out.width="80%"}
 plot(mod, what = "adjacency")
+```
+```{r, out.width="80%"}
 plot(mod, what = "classification")
 ```
 
-
 # References
 
-Fop, M., Murphy, T.B., and Scrucca, L. (2018) Model-based clustering with sparse covariance matrices. **Statistics and Computing**. 
+Fop, M., Murphy, T.B., and Scrucca, L. (2019) Model-based clustering with sparse covariance matrices. **Statistics and Computing**, 29:4, 791–819.
 URL: https://doi.org/10.1007/s11222-018-9838-y
 
 ----

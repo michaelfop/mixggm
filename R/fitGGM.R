@@ -6,22 +6,37 @@
 fitGGM <- function(data = NULL,
                    S = NULL, N = NULL,
                    graph,
-                   model = c("covariance", "concentration"),    # inverse covariance to be implemented - omega
+                   model = c("covariance", "concentration"),    # inverse covariance to be implemented - omega # LSTODO: ??
                    start = NULL,
-                   ctrlIcf = ctrlICF(),
+                   ctrlICF = controlICF(),
                    regularize = FALSE,
                    regHyperPar = NULL,
                    verbose = FALSE, ...)
 {
-  if ( all(is.null(data), is.null(S)) ) stop("We need some data to estimate a model! Please input 'data' or 'S' and 'N")
-  if ( is.null(S) & !is.null(data) ) {
+  call <- match.call()
+  if ( all(is.null(data), is.null(S)) ) 
+    stop("We need some data to estimate a model! Please input 'data' or 'S' and 'N")
+  if ( is.null(S) & !is.null(data) ) 
+  {
+    data <- data.matrix(data)
     N <- nrow(data)
     S <- cov(data)*(N-1)/N
-  } else if ( is.null(N) & is.null(data) ) stop("You need to provide the sample size 'N' in input if don't supply 'data'")
+  } else 
+  if ( is.null(N) & is.null(data) ) 
+    stop("You need to provide the sample size 'N' in input if don't supply 'data'")
 
-  model <- match.arg( model, c("covariance", "concentration") )
-  if ( !isSymmetric(graph) ) stop ("You must provide a symmetric adjacency matrix")
-  if ( any(diag(graph) != 0) ) stop ("You must provide an adjacency matrix with null diagonal")
+  if(missing(graph))
+    stop("'graph' argument is missing. Please provide a square symmetric binary adjacency matrix corresponding to the association structure of the graph.")
+  graph <- as.matrix(graph)
+  if ( !isSymmetric(graph) ) 
+    stop ("'graph' must be a square symmetric binary adjacency matrix")
+  # if ( any(diag(graph) != 0) ) 
+  #   stop ("'graph' must be a square symmetric binary adjacency matrix with null diagonal")
+  # LSTODO: forced to be binary with 0s along the diagonal
+  diag(graph) <- 0
+  graph[abs(graph) > 0] <- 1
+  
+  model <- match.arg(model, choices = eval(formals(fitGGM)$model))
 
   V <- ncol(S)
   if ( is.null(colnames(S) ) ) colnames(S) <- paste0("V", 1:V)
@@ -95,40 +110,58 @@ fitGGM <- function(data = NULL,
     start[graph == 0] <- 0
     diag(start) <- temp
     sigma <- as.matrix(start)
-    if ( min( eigen(sigma, only.values = TRUE)$values ) <= 0 ) sigma <- diag( diag(S) )
+    if ( min( eigen(sigma, only.values = TRUE)$values ) <= 0 ) 
+      sigma <- diag( diag(S) )
   }
   #...........................................................................
 
   # icf ......................................................................
   out <- switch(model,
-                covariance = icf(sigma, S, graph, N, ctrlIcf$tol, ctrlIcf$itMax, verbose, regularize, psi),
-                concentration = conggm(S, graph, N, ctrlIcf$tol, ctrlIcf$itMax, verbose)
+                covariance = icf(sigma, S, graph, N, 
+                                 ctrlICF$tol, ctrlICF$itMax, 
+                                 verbose, regularize, psi),
+                concentration = conggm(S, graph, N, 
+                                       ctrlICF$tol, ctrlICF$itMax, 
+                                       verbose)
                 )
 
   dimnames(out$sigma) <- dimnames(out$omega) <- list(varnames, varnames)
-  res <- list(sigma = out$sigma, omega = out$omega, graph = graph, model = model,
-              loglik = out$loglik, nPar = nPar + V, N = N, V = V, iter = out$it)
+  res <- list(call = call, 
+              model = model, graph = graph, N = N, V = V,
+              loglik = out$loglik, iter = out$it, nPar = nPar + V, 
+              sigma = out$sigma, omega = out$omega)
   class(res) <- "fitGGM"
-  return( res )
+  return(res)
 }
-
 
 print.fitGGM <- function(x, ...)
 {
-  cat("\n")
-  txt <- paste(" ", "Gaussian", x$model, "graph model", "\n")
-  cat(txt)
-  cat("    for", ifelse(x$model == "covariance", "marginal", "conditional"), "independence", "\n")
-  sep <- paste0(rep("=", max(nchar(txt)) + 1),
-                collapse = "")
-  cat(sep, "\n")
-  cat( paste0("  ", "N. dependence parameters: ", x$nPar - x$V) )
-  cat("\n")
-  cat( paste0("  ", "Log-likelihood: ", round(x$loglik, 2), "\n") )
-  if ( !is.null(x$penalty) ) {
-    cat( paste0("  Penalized log-likelihood: ", round(x$loglikPen, 2), "\n") )
-    cat( paste0("  Penalty: ", x$penalty, "\n") )
-    cat( paste0("  Search: ", x$search, "\n") )
+  if(!is.null(cl <- x$call))
+  { 
+    cat("Call:\n")
+    dput(cl, control = NULL)
   }
+  cat("\n'fitGGM' object containing:","\n")
+  print(names(x)[-1])
+  invisible()
 }
+
+# print.fitGGM <- function(x, ...)
+# {
+#   cat("\n")
+#   txt <- paste(" ", "Gaussian", x$model, "graph model", "\n")
+#   cat(txt)
+#   cat("    for", ifelse(x$model == "covariance", "marginal", "conditional"), "independence", "\n")
+#   sep <- paste0(rep("=", max(nchar(txt)) + 1),
+#                 collapse = "")
+#   cat(sep, "\n")
+#   cat( paste0("  ", "N. dependence parameters: ", x$nPar - x$V) )
+#   cat("\n")
+#   cat( paste0("  ", "Log-likelihood: ", round(x$loglik, 2), "\n") )
+#   if ( !is.null(x$penalty) ) {
+#     cat( paste0("  Penalized log-likelihood: ", round(x$loglikPen, 2), "\n") )
+#     cat( paste0("  Penalty: ", x$penalty, "\n") )
+#     cat( paste0("  Search: ", x$search, "\n") )
+#   }
+# }
 

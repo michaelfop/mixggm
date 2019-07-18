@@ -18,7 +18,7 @@ Maintainer: Michael Fop \email{michael.fop@ucd.ie}
 }
 
 \references{
-Fop, M., Murphy, T.B., and Scrucca, L. (2018). Model-based clustering with sparse covariance matrices. \emph{Statistics and Computing}. To appear.
+Fop, M., Murphy, T.B., and Scrucca, L. (2019) Model-based clustering with sparse covariance matrices. **Statistics and Computing**, 29:4, 791–819.
 }
 
 \keyword{package}

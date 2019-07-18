@@ -4,7 +4,7 @@
 # Functions for performing graph search using a forward stepwise algorithm
 # in mixtures of Gaussian graphical models
 
-startStepwise <- function(S, Nk, N, model, penalty, beta, regularize, regHyperPar, ctrlIcf)
+startStepwise <- function(S, Nk, N, model, penalty, beta, regularize, regHyperPar, ctrlICF)
   # initialize graph in stepwise search
 {
   V <- ncol(S)
@@ -38,7 +38,7 @@ startStepwise <- function(S, Nk, N, model, penalty, beta, regularize, regHyperPa
     startIcf <- S/log2(V)
     startIcf[ A == 0 ] <- 0
     diag(startIcf) <- diag(S)
-    fit[[s]] <- fitGGM(data = NULL, S = S, graph = A, model = model, N = Nk, start = startIcf, ctrlIcf = ctrlIcf,
+    fit[[s]] <- fitGGM(data = NULL, S = S, graph = A, model = model, N = Nk, start = startIcf, ctrlICF = ctrlICF,
                        regularize = regularize, regHyperPar = regHyperPar)
     crit[s] <- fit[[s]]$loglik - penalty(A, beta = beta)
   }
@@ -56,7 +56,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
                                 pro = NULL, start = NULL,
                                 regularize = FALSE, regHyperPar = NULL,
                                 penalty = graphPenalty(), beta = NULL,
-                                ctrlStep = ctrlSTEP(), ctrlIcf = ctrlICF(),
+                                ctrlSTEP = controlSTEP(), ctrlICF = controlICF(),
                                 parallel = FALSE, verbose = FALSE, occam = NULL)
   # Function for searching the best structure of a graph using a forward stepwise search.
 {
@@ -93,7 +93,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
 
   # initialization ---------------------------------------------------------
   if ( is.null(start) ) {
-    startStep <- startStepwise(S, Nk, N, model, penalty, beta, regularize, regHyperPar, ctrlIcf)
+    startStep <- startStepwise(S, Nk, N, model, penalty, beta, regularize, regHyperPar, ctrlICF)
     adjMat0 <- startStep$adjMat
     Sigma <- startStep$Sigma
     Omega <- startStep$Omega
@@ -105,7 +105,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
       if ( !is.matrix(start) | !zeroOne )
         stop("You have to provide a proper adjacency matrix")
       adjMat0 <- start
-      fit <- fitGGM(graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlIcf = ctrlIcf,
+      fit <- fitGGM(graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlICF = ctrlICF,
                     regularize = regularize, regHyperPar = regHyperPar)
       Sigma <- fit$sigma
       Omega <- fit$omega
@@ -117,7 +117,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
       critVal <- attr(start, "critOut")
       adjMat0 <- start
       attributes(adjMat0)[c("sigma", "critOut")] <- NULL
-      fit <- fitGGM(data = NULL, graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlIcf = ctrlIcf,
+      fit <- fitGGM(data = NULL, graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlICF = ctrlICF,
                     regularize = regularize, regHyperPar = regHyperPar)
       Sigma <- fit$sigma
       Omega <- fit$omega  # update matrices
@@ -132,8 +132,8 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
   crit <- TRUE
   niter <- 0
 
-  occamAdd <- ctrlStep$occamAdd
-  occamRem <- ctrlStep$occamRem
+  occamAdd <- ctrlSTEP$occamAdd
+  occamRem <- ctrlSTEP$occamRem
   inWindowAdd <- inWindowRem <- TRUE
   upDiag <- upper.tri(adjMat)*adjMat
   TODROP <- if ( is.null(occam$TODROP) ) which(upDiag != 0, arr.ind = TRUE) else occam$TODROP    # edges to remove
@@ -158,7 +158,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
         a <- adjMat
         a[i,j] <- a[j,i] <- 1
         #
-        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlIcf = ctrlIcf,
+        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
                       regularize = regularize, regHyperPar = regHyperPar)
         #
         val <- fit$loglik - penalty(a, beta = beta)
@@ -227,7 +227,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
         a <- adjMat
         a[i,j] <- a[j,i] <- 0
         #
-        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlIcf = ctrlIcf,
+        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
                       regularize = regularize, regHyperPar = regHyperPar)
         #
         val <- fit$loglik - penalty(a, beta = beta)
@@ -300,7 +300,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
                                 pro = NULL, start = NULL,
                                 regularize = FALSE, regHyperPar = NULL,
                                 penalty = graphPenalty(), beta = NULL,
-                                ctrlStep = ctrlSTEP(), ctrlIcf = ctrlICF(),
+                                ctrlSTEP = controlSTEP(), ctrlICF = controlICF(),
                                 parallel = FALSE, verbose = FALSE, occam = NULL)
   # Function for searching the best structure of a graph using a backward stepwise search.
 {
@@ -351,7 +351,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
       if ( !is.matrix(start) | !zeroOne )
         stop("You have to provide a proper adjacency matrix")
       adjMat0 <- start
-      fit <- fitGGM(graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlIcf = ctrlIcf,
+      fit <- fitGGM(graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlICF = ctrlICF,
                     regularize = regularize, regHyperPar = regHyperPar)
       Sigma <- fit$sigma
       Omega <- fit$omega
@@ -363,7 +363,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
       critVal <- attr(start, "critOut")
       adjMat0 <- start
       attributes(adjMat0)[c("sigma", "critOut")] <- NULL
-      fit <- fitGGM(data = NULL, graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlIcf = ctrlIcf,
+      fit <- fitGGM(data = NULL, graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlICF = ctrlICF,
                     regularize = regularize, regHyperPar = regHyperPar)
       Sigma <- fit$sigma
       Omega <- fit$omega  # update matrices
@@ -378,8 +378,8 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
   crit <- TRUE
   niter <- 0
 
-  occamAdd <- ctrlStep$occamAdd
-  occamRem <- ctrlStep$occamRem
+  occamAdd <- ctrlSTEP$occamAdd
+  occamRem <- ctrlSTEP$occamRem
   inWindowAdd <- inWindowRem <- TRUE
   upDiag <- upper.tri(adjMat)*adjMat
   TODROP <- if ( is.null(occam$TODROP) ) which(upDiag != 0, arr.ind = TRUE) else occam$TODROP    # edges to remove
@@ -405,7 +405,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
         a <- adjMat
         a[i,j] <- a[j,i] <- 0
         #
-        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlIcf = ctrlIcf,
+        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
                       regularize = regularize, regHyperPar = regHyperPar)
         #
         val <- fit$loglik - penalty(a, beta = beta)
@@ -474,7 +474,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
         a <- adjMat
         a[i,j] <- a[j,i] <- 1
         #
-        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlIcf = ctrlIcf,
+        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
                       regularize = regularize, regHyperPar = regHyperPar)
         #
         val <- fit$loglik - penalty(a, beta = beta)

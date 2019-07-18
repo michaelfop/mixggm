@@ -15,9 +15,9 @@ searchGGM(data = NULL,
           beta = NULL,
           start = NULL,
           regularize = FALSE, regHyperPar = NULL,
-          ctrlStep = ctrlSTEP(), ctrlGa = ctrlGA(), ctrlIcf = ctrlICF(),
+          ctrlSTEP = controlSTEP(), ctrlGA = controlGA(), ctrlICF = controlICF(),
           parallel = FALSE,
-          verbose = FALSE, ...)
+          verbose = FALSE, \dots)
 }
 
 \arguments{
@@ -39,17 +39,19 @@ searchGGM(data = NULL,
 
 \item{regularize}{A logical argument indicating if Bayesian regularization should be performed. Default to \code{FALSE}. Used only when \code{model = "covariance"}.}
 
-\item{regHyperPar}{A list of hyper parameters for Bayesian regularization. Only used when\cr \code{regularization = TRUE}; see also \code{\link{ctrlREG}}.}
+\item{regHyperPar}{A list of hyper parameters for Bayesian regularization. Only used when \code{regularization = TRUE}; see also \code{\link{controlREG}}.}
 
-\item{ctrlStep}{A list of control parameters used in the stepwise search; see also \code{\link{ctrlSTEP}}.}
-\item{ctrlGa}{A list of control parameters for the genetic algorithm; see also \code{\link{ctrlGA}}.}
-\item{ctrlIcf}{A list of control parameters employed in the algorithm for estimation of graphical model parameters; see also \code{\link{ctrlICF}}.}
+\item{ctrlSTEP}{A list of control parameters used in the stepwise search; see also \code{\link{controlSTEP}}.}
+
+\item{ctrlGA}{A list of control parameters for the genetic algorithm; see also \code{\link{controlGA}}.}
+
+\item{ctrlICF}{A list of control parameters employed in the algorithm for estimation of graphical model parameters; see also \code{\link{controlICF}}.}
 
 \item{parallel}{A logical argument indicating if parallel computation should be used for structure search. If TRUE, all the available cores are used. The argument could also be set to a numeric integer value specifying the number of cores to be employed.}
 
 \item{verbose}{A logical argument controlling whether iterations of the structure searching and estimation procedure need to be shown or not.}
 
-\item{...}{Additional internal arguments not to be provided by the user.}
+\item{\dots}{Additional internal arguments not to be provided by the user.}
 }
 
 
@@ -128,7 +130,7 @@ plot(mod4, what = "adjacency")
 
 
 \references{
-Fop, M., Murphy, T.B., and Scrucca, L. (2018). Model-based clustering with sparse covariance matrices. \emph{Statistics and Computing}. To appear.
+Fop, M., Murphy, T.B., and Scrucca, L. (2019) Model-based clustering with sparse covariance matrices. **Statistics and Computing**, 29:4, 791–819.
 
 Scrucca, L. (2017). On some extensions to GA package: Hybrid optimisation, parallelisation and islands evolution. \emph{The R Journal}, 9(1), 187-206.
 

@@ -1,24 +1,26 @@
 Package: mixggm
 Version: 1.0.1
-Date: 2019-01-07
+Date: 2019-02-06
 Title: Mixtures of Gaussian Graphical Models
 Description: Mixtures of Gaussian graphical models for model-based clustering with sparse covariance and concentration matrices. See Fop, Murphy, and Scrucca (2018) <doi:10.1007/s11222-018-9838-y>.
 Authors@R: c(person("Michael", "Fop", role = c("aut", "cre"), 
                     email = "michael.fop@ucd.ie",
                     comment = c(ORCID = "0000-0003-3936-2757")),
-             person("Luca", "Scrucca", role = "ctb",
+             person("Luca", "Scrucca", role = "aut",
                     comment = c(ORCID = "0000-0003-3826-0484")),
              person("Thomas Brendan", "Murphy", role = "ctb",
                     comment = c(ORCID = "0000-0002-5668-7046")))
 Maintainer: Michael Fop <michael.fop@ucd.ie>
-Depends: R (>= 3.3)
-Imports: foreach,
-         GA (>= 3.1),
+Depends: R (>= 3.4)
+Imports: GA (>= 3.1),
          mclust (>= 5.4),
+         Rcpp (>= 1.0),
+         foreach,
          memoise,
          network,
-         Rcpp
-Suggests: MASS, gclus, devtools, knitr (>= 1.2)
+         cli, 
+         crayon
+Suggests: MASS, gclus, devtools, knitr (>= 1.8)
 LinkingTo: Rcpp, RcppArmadillo
 VignetteBuilder: knitr
 License: GPL (>= 2)

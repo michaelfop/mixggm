@@ -26,5 +26,5 @@ See `help(mixGGM)`.
 
 ## References
 
-Fop, M., Murphy, T.B., and Scrucca, L. (2018) Model-based clustering with sparse covariance matrices. **Statistics and Computing**. 
+Fop, M., Murphy, T.B., and Scrucca, L. (2019) Model-based clustering with sparse covariance matrices. **Statistics and Computing**, 29:4, 791–819.
 URL: https://doi.org/10.1007/s11222-018-9838-y

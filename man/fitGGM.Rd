@@ -13,10 +13,10 @@ fitGGM(data = NULL,
       graph,
       model = c("covariance", "concentration"),
       start = NULL,
-      ctrlIcf = ctrlICF(),
+      ctrlICF = controlICF(),
       regularize = FALSE,
       regHyperPar = NULL,
-      verbose = FALSE, ...)
+      verbose = FALSE, \dots)
 }
 
 \arguments{
@@ -32,15 +32,15 @@ fitGGM(data = NULL,
 
 \item{start}{A starting matrix for the estimation algorithm. If \code{NULL}, the starting value is the diagonal sample covariance matrix. Used only when \code{model = "covariance"}.}
 
-\item{ctrlIcf}{A list of control parameters for the numerical algorithm for estimation of graphical model parameters; see also \code{\link{ctrlICF}}.}
+\item{ctrlICF}{A list of control parameters for the numerical algorithm for estimation of graphical model parameters; see also \code{\link{controlICF}}.}
 
 \item{regularize}{A logical argument indicating if Bayesian regularization should be performed. Default to \code{FALSE}. Used only when \code{model = "covariance"}.}
 
-\item{regHyperPar}{A list of hyper parameters for Bayesian regularization. Only used when\cr \code{regularization = TRUE}; see also \code{\link{ctrlREG}}.}
+\item{regHyperPar}{A list of hyper parameters for Bayesian regularization. Only used when \code{regularization = TRUE}; see also \code{\link{controlREG}}.}
 
 \item{verbose}{A logical argument controlling whether iterations of the estimation procedure need to be shown or not.}
 
-\item{...}{Additional internal arguments not to be provided by the user.}
+\item{\dots}{Additional internal arguments not to be provided by the user.}
 }
 
 \value{
@@ -127,7 +127,7 @@ plot(fit3)
 \references{
 Chaudhuri, S., Drton M., and Richardson, T. S. (2007). Estimation of a covariance matrix with zeros. \emph{Biometrika}, 94(1), 199-216.
 
-Fop, M., Murphy, T.B., and Scrucca, L. (2018). Model-based clustering with sparse covariance matrices. \emph{Statistics and Computing}. To appear.
+Fop, M., Murphy, T.B., and Scrucca, L. (2019) Model-based clustering with sparse covariance matrices. **Statistics and Computing**, 29:4, 791–819.
 
 Hastie, T., Tibshirani, R. and Friedman, J. (2009). \emph{The Elements of Statistical Learning}. Springer.
 
