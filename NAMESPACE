@@ -15,11 +15,12 @@ importFrom("cli", "rule")
 importFrom("crayon", "bold")
 
 export(mixGGM, print.mixGGM, summary.mixGGM,
-       print.summary.mixGGM, plot.mixGGM)
+       print.summary.mixGGM, plot.mixGGM, predict.mixGGM)
 S3method("print", "mixGGM")
 S3method("summary", "mixGGM")
 S3method("print", "summary.mixGGM")
 S3method("plot", "mixGGM")
+S3method("predict", "mixGGM")
 
 export(fitGGM, print.fitGGM, plot.fitGGM)
 S3method("print", "fitGGM")

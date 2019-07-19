@@ -33,7 +33,7 @@ mixGGM <- function(data, K = 1:3,
   }
   N <- nrow(data)
   V <- ncol(data)
-
+  
   # start parallel computations--------------------------------------
   if ( parallel | is.numeric(parallel) ) {
     parallel <- GA::startParallel(parallel)
@@ -42,20 +42,20 @@ mixGGM <- function(data, K = 1:3,
   }
   on.exit( if ( parallel ) parallel::stopCluster(attr(parallel, "cluster")) )
   #-------------------------------------------------------------------------
-
+  
   # initialize EM algorithm
   if ( !is.null(ctrlEM$subset) ) {
     hcInit <- mclust::hc(data[ctrlEM$subset,], modelName = "VVV", use = "VARS")
   } else hcInit <- mclust::hc(data, modelName = "VVV", use = "VARS")
-
+  
   res <- list()
   BIC <- rep( NA, length(K) )
-
+  
   if ( verbose ) {
     pbar <- txtProgressBar(min = 0, max = length(K), style = 3)
     on.exit( close(pbar) )
   }
-
+  
   if ( verbose ) setTxtProgressBar(pbar, 0)
   for ( k in K ) {
     i <- match(k, K)
@@ -74,7 +74,7 @@ mixGGM <- function(data, K = 1:3,
       # if ( regularize ) temp$loglik <- temp$llk
       BIC[i] <- temp$loglikReg - 0.5*log(N)*temp$nPar[2]
       BIC[i] <- BIC[i]*2    # to be consistent with mclust, otherwise comment
-
+      
       # # icl
       # cl <- map(temp$z)
       # ICL[i] <- BIC[i] + 2*sum( cl * ifelse(temp$z > 0, log(temp$z), 0) )
@@ -88,7 +88,7 @@ mixGGM <- function(data, K = 1:3,
     }
     if ( verbose ) setTxtProgressBar(pbar, i)
   }
-
+  
   # best model
   if ( all(is.na(BIC)) ) {
     h <- min(K)
@@ -105,12 +105,12 @@ mixGGM <- function(data, K = 1:3,
     out$search <- search
     out$model<- model
   }
-
+  
   # out <- out[c(1,2,16,5,3,4,6:9,13,12,10,11,15,14)]
   # out <- out[ c(1:11, 14,13,15, 17,12,16)]
   out <- out[c(15,17,16,12,13,3,4,6,7,8,14,5,9,1,2,10,11)]
   out$keepAll <- if ( keepAll ) res else NULL
-
+  
   out <- c(call = call, out)
   out$control <- list(EM = ctrlEM, 
                       STEP = ctrlSTEP, 
@@ -234,4 +234,29 @@ print.summary.mixGGM <- function(x, digits = getOption("digits"), ...)
   }
   #
   invisible()
+}
+
+
+predict.mixGGM <- function(object, newdata, ...)
+{
+  if (!inherits(object, "mixGGM")) 
+    stop("object not of class \"mixGGM\"")
+  if ( missing(newdata) ) {
+    newdata <- object$data
+  }
+  newdata <- as.matrix(newdata)
+  if ( ncol(object$data ) != ncol(newdata) ) {
+    stop("newdata must match ncol of object data")
+  }
+  object$data <- newdata
+  prior <- object$parameters$tau
+  e <- estepmggm(newdata, t(object$parameters$mu), 
+                 object$parameters$sigma, prior)
+  z <- e$z
+  cl <- seq(object$K)
+  colnames(z) <- cl
+  cl <- max.col(z)
+  # cl <- cl[apply(z, 1, which.max)]
+  out <- list(classification = cl, z = z)
+  return(out)
 }
