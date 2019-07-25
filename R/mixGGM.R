@@ -5,7 +5,7 @@
 
 mixGGM <- function(data, K = 1:3,
                    model = c("covariance", "concentration"),
-                   search = c("step-forw", "step-back","ga"),
+                   search = c("step-forw", "step-back", "ga"),
                    penalty = c("bic", "ebic", "erdos", "power"),
                    beta = NULL,
                    regularize = FALSE, 
@@ -18,6 +18,7 @@ mixGGM <- function(data, K = 1:3,
                    parallel = FALSE,
                    verbose = interactive() )
 {
+  if ( ncol(data) < 2 ) stop("Model cannot be fitted on univariate data")
   call <- match.call()
   data <- data.matrix(data)
   model   <- match.arg(model, choices = eval(formals(mixGGM)$model))
@@ -31,7 +32,7 @@ mixGGM <- function(data, K = 1:3,
     varnames <- paste0("V", 1:V)
     colnames(data) <- varnames
   }
-  N <- nrow(data)
+  n <- nrow(data)
   V <- ncol(data)
   
   # start parallel computations--------------------------------------
@@ -72,7 +73,7 @@ mixGGM <- function(data, K = 1:3,
     } else {
       res[[i]] <- temp
       # if ( regularize ) temp$loglik <- temp$llk
-      BIC[i] <- temp$loglikReg - 0.5*log(N)*temp$nPar[2]
+      BIC[i] <- temp$loglikReg - 0.5*log(n)*temp$nPar[2]
       BIC[i] <- BIC[i]*2    # to be consistent with mclust, otherwise comment
       
       # # icl
@@ -154,7 +155,7 @@ summary.mixGGM <- function(object,
                            parameters = FALSE,
                            ...)
 {
-  out <- object[c("model", "penalty", "search", "N", "V", 
+  out <- object[c("model", "penalty", "search", "n", "V", 
                   "loglik", "loglikPen", "loglikReg",
                   "K", "nPar", "bic", "graph", "parameters")]
   out$regularize <- (object$loglik != object$loglikReg)
@@ -176,7 +177,7 @@ print.summary.mixGGM <- function(x, digits = getOption("digits"), ...)
   cat(cli::rule(left = crayon::bold("Mixture of Gaussian graphical models"), 
                 width = min(getOption("width"),60)), "\n\n")
   #
-  cat(paste("Data dimensions =", x$N, "x", x$V, "\n"))
+  cat(paste("Data dimensions =", x$n, "x", x$V, "\n"))
   cat(paste("Model           =", x$model, "\n"))
   cat(paste("Search          =", x$search, "\n"))
   cat(paste("Penalty         =", x$penalty, "\n\n"))

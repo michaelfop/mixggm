@@ -69,7 +69,7 @@ The output is a list containing:
   }
 }
 \item{graph}{An array with the adjacency matrices corresponding to the optimal marginal or conditional independence graphs for each mixture component.}
-\item{N}{Number of observations in the data.}
+\item{n}{Number of observations in the data.}
 \item{V}{Number of variables in the data, corresponding to the number of nodes in the graphs.}
 \item{K}{Number of selected mixture components.}
 \item{loglik}{Value of the maximized log-likelihood.}
@@ -125,16 +125,16 @@ plot(mod1, what = "classification")
 
 # a simple simulated data example
 library(MASS)
-N <- 200
+n <- 200
 tau <- c(0.3, 0.7)
-Nk <- rowSums( rmultinom(N, 1, tau) )
-class <- rep(1:2, Nk)
+nk <- rowSums( rmultinom(n, 1, tau) )
+class <- rep(1:2, nk)
 sigma1 <- diag(2)                          # independent variables
 sigma2 <- matrix( c(1,0.9,0.9,1), 2,2 )    # correlated variables
 mu1 <- c(0, 0)
 mu2 <- c(2, 3)
-x <- rbind( MASS::mvrnorm(Nk[1], mu1, sigma1),
-            MASS::mvrnorm(Nk[2], mu2, sigma2)
+x <- rbind( MASS::mvrnorm(nk[1], mu1, sigma1),
+            MASS::mvrnorm(nk[2], mu2, sigma2)
 )
 mod2 <- mixGGM(x)
 plot(mod2)
@@ -149,18 +149,18 @@ plot(mod3, what = "classification", dimens = 1:4)
 
 
 # complex simulated data example
-N <- 500
+n <- 500
 V <- 20
 tau <- c(0.3, 0.7)
-Nk <- rowSums( rmultinom(N, 1, tau) )
-class <- rep(1:2, Nk)
+nk <- rowSums( rmultinom(n, 1, tau) )
+class <- rep(1:2, nk)
 sigma1 <- rWishart(1, V+1, diag(V))[,,1]
 mu1 <- rep(0, V)
 mu2 <- rnorm(V, 0.5, 2)
-x1 <- MASS::mvrnorm(Nk[1], mu1, sigma1)
-x2 <- matrix(NA, Nk[2], V)
-x2[,1] <- rnorm(Nk[2])
-for ( j in 2:V ) x2[,j] <- x2[,j-1] + rnorm(Nk[2], mu2[j], sd = 0.5)
+x1 <- MASS::mvrnorm(nk[1], mu1, sigma1)
+x2 <- matrix(NA, nk[2], V)
+x2[,1] <- rnorm(nk[2])
+for ( j in 2:V ) x2[,j] <- x2[,j-1] + rnorm(nk[2], mu2[j], sd = 0.5)
 x <- rbind(x1, x2)
 #
 mod4 <- mixGGM(x, K = 1:4, model = "concentration",

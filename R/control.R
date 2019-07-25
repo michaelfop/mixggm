@@ -16,13 +16,13 @@ controlREG <- function(data, K,
   # hyperparameters for Bayesian regularization
 {
   V <- ncol(data)
-  N <- nrow(data)
+  n <- nrow(data)
   st <- match.arg( scaleType, c("full", "fixed", "one", "diag") )
 
   if ( is.null(psi) ) psi <- V + 2
   if ( is.null(scale) ) {
-    VAR <- var(data)*(N-1)/N
-    if ( N > V ) {
+    VAR <- var(data)*(n-1)/n
+    if ( n > V ) {
       scale <- switch( st,
                        full = VAR/( K^(2/V) ),
                        fixed = VAR/det(VAR)^(1/V) * (0.001/K)^(1/V),

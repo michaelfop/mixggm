@@ -4,7 +4,7 @@
 #
 
 fitGGM <- function(data = NULL,
-                   S = NULL, N = NULL,
+                   S = NULL, n = NULL,
                    graph,
                    model = c("covariance", "concentration"),    # inverse covariance to be implemented - omega # LSTODO: ??
                    start = NULL,
@@ -15,15 +15,15 @@ fitGGM <- function(data = NULL,
 {
   call <- match.call()
   if ( all(is.null(data), is.null(S)) ) 
-    stop("We need some data to estimate a model! Please input 'data' or 'S' and 'N")
+    stop("We need some data to estimate a model! Please input 'data' or 'S' and 'n")
   if ( is.null(S) & !is.null(data) ) 
   {
     data <- data.matrix(data)
-    N <- nrow(data)
-    S <- cov(data)*(N-1)/N
+    n <- nrow(data)
+    S <- cov(data)*(n-1)/n
   } else 
-  if ( is.null(N) & is.null(data) ) 
-    stop("You need to provide the sample size 'N' in input if don't supply 'data'")
+  if ( is.null(n) & is.null(data) ) 
+    stop("You need to provide the sample size 'n' in input if don't supply 'data'")
 
   if(missing(graph))
     stop("'graph' argument is missing. Please provide a square symmetric binary adjacency matrix corresponding to the association structure of the graph.")
@@ -49,12 +49,12 @@ fitGGM <- function(data = NULL,
   if ( regularize ) {
     if ( is.null(regHyperPar) ) {
       psi <- V + 2
-      S <- if ( V > N ) {
-        ( diag(diag(S)) + S*N ) / (psi + N + V + 1)
-      } else ( S + S*N ) / (psi + N + V + 1)
+      S <- if ( V > n ) {
+        ( diag(diag(S)) + S*n ) / (psi + n + V + 1)
+      } else ( S + S*n ) / (psi + n + V + 1)
     } else {
       psi <- regHyperPar$psi
-      if ( !inherits(regHyperPar, "EM") ) S <- ( regHyperPar$scale + S*N ) / (regHyperPar$psi + N + V + 1)
+      if ( !inherits(regHyperPar, "EM") ) S <- ( regHyperPar$scale + S*n ) / (regHyperPar$psi + n + V + 1)
       # if the function is not used in 'mixGGM' we compute the regularized S
       # if the function is used in 'mixGGM', regularized S is provided in input
     }
@@ -68,8 +68,8 @@ fitGGM <- function(data = NULL,
   # the graph is complete ....................................................
   if ( nPar == tot ) {
     sigma <- S
-    if ( regularize ) N <- N + psi + V + 1
-    lk <- profileloglik(sigma, S, N)
+    if ( regularize ) n <- n + psi + V + 1
+    lk <- profileloglik(sigma, S, n)
     dimnames(sigma) <- dimnames(lk$omega) <- dimnames(graph) <- list(varnames, varnames)
     res <- list(sigma = sigma, omega = lk$omega, graph = graph, model = model,
                 loglik = lk$loglik, nPar = nPar + V, V = V, iter = 1)
@@ -80,8 +80,8 @@ fitGGM <- function(data = NULL,
   if ( nPar == 0 ) {
     sigma <- diag( diag(S) )
     dimnames(sigma) <- list(varnames, varnames)
-    if ( regularize ) N <- N + psi + V + 1
-    lk <- profileloglik(sigma, S, N)
+    if ( regularize ) n <- n + psi + V + 1
+    lk <- profileloglik(sigma, S, n)
     dimnames(lk$omega) <- dimnames(graph) <- list(varnames, varnames)
     res <- list(sigma = sigma, omega = lk$omega, graph = graph, model = model,
                 loglik = lk$loglik, nPar = nPar + V, V = V, iter = 1)
@@ -117,17 +117,17 @@ fitGGM <- function(data = NULL,
 
   # icf ......................................................................
   out <- switch(model,
-                covariance = icf(sigma, S, graph, N, 
+                covariance = icf(sigma, S, graph, n, 
                                  ctrlICF$tol, ctrlICF$itMax, 
                                  verbose, regularize, psi),
-                concentration = conggm(S, graph, N, 
+                concentration = conggm(S, graph, n, 
                                        ctrlICF$tol, ctrlICF$itMax, 
                                        verbose)
                 )
 
   dimnames(out$sigma) <- dimnames(out$omega) <- list(varnames, varnames)
   res <- list(call = call, 
-              model = model, graph = graph, N = N, V = V,
+              model = model, graph = graph, n = n, V = V,
               loglik = out$loglik, iter = out$it, nPar = nPar + V, 
               sigma = out$sigma, omega = out$omega)
   class(res) <- "fitGGM"

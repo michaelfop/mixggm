@@ -4,7 +4,7 @@
 #
 
 searchGGM <- function(data = NULL,
-                      S = NULL, N = NULL,
+                      S = NULL, n = NULL,
                       model = c("covariance", "concentration"),
                       search = c("step-forw", "step-back", "ga"),   # lasso coming soon
                       penalty = c("bic", "ebic", "erdos", "power"),
@@ -15,11 +15,11 @@ searchGGM <- function(data = NULL,
                       parallel = FALSE,
                       verbose = FALSE, ...)
 {
-  if ( all(is.null(data), is.null(S)) ) stop("We need some data to estimate a model! Please input 'data' or 'S' and 'N")
+  if ( all(is.null(data), is.null(S)) ) stop("We need some data to estimate a model! Please input 'data' or 'S' and 'n")
   if ( is.null(S) & !is.null(data) ) {
-    N <- nrow(data)
-    S <- cov(data)*(N-1)/N
-  } else if ( is.null(N) & is.null(data) ) stop("You need to provide the sample size 'N' in input if don't supply 'data'")
+    n <- nrow(data)
+    S <- cov(data)*(n-1)/n
+  } else if ( is.null(n) & is.null(data) ) stop("You need to provide the sample size 'n' in input if don't supply 'data'")
 
   V <- ncol(S)
   model <- match.arg(model, c("covariance", "concentration"))
@@ -32,19 +32,19 @@ searchGGM <- function(data = NULL,
   }
 
   out <- switch(search,
-                "step-back" = searchGGMStepwise_b(S = S, N = N, model = model,
+                "step-back" = searchGGMStepwise_b(S = S, n = n, model = model,
                                                   penalty = penalty, beta = beta, start = start,
                                                   regularize = regularize, regHyperPar = regHyperPar,
                                                   ctrlSTEP = ctrlSTEP, ctrlICF = ctrlICF,
                                                   parallel = parallel, verbose = verbose,
                                                   pro = forEM$pro, occam = forEM$occam),
-                "step-forw" = searchGGMStepwise_f(S = S, N = N, model = model,
+                "step-forw" = searchGGMStepwise_f(S = S, n = n, model = model,
                                                   penalty = penalty, beta = beta, start = start,
                                                   regularize = regularize, regHyperPar = regHyperPar,
                                                   ctrlSTEP = ctrlSTEP, ctrlICF = ctrlICF,
                                                   parallel = parallel, verbose = verbose,
                                                   pro = forEM$pro, occam = forEM$occam),
-                "ga" = searchGGMGA(S = S, N = N, model = model,
+                "ga" = searchGGMGA(S = S, n = n, model = model,
                                    penalty = penalty, beta = beta, start = start,
                                    regularize = regularize, regHyperPar = regHyperPar,
                                    ctrlGA = ctrlGA, ctrlICF = ctrlICF,
@@ -52,7 +52,7 @@ searchGGM <- function(data = NULL,
                                    pro = forEM$pro)
   )
   res <- list(sigma = out$sigma, omega = out$omega, graph = out$graph, model = model, loglikPen = out$crit,
-              loglik = out$loglik, nPar = out$nPar, N = N, V = V, penalty = attr(penalty, "type"), search = search)
+              loglik = out$loglik, nPar = out$nPar, n = n, V = V, penalty = attr(penalty, "type"), search = search)
   if ( search == "ga" ) res$GA <- out$GA
   class(res) <- "fitGGM"
   return(res)

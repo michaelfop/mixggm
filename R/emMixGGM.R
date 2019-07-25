@@ -18,7 +18,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
                       verbose = FALSE )
 {
   varnames <- colnames(data)
-  N <- nrow(data)
+  n <- nrow(data)
   V <- ncol(data)
   search <- match.arg( search,  c("step-forw", "step-back", "ga") )
   data <- data.matrix(data)
@@ -27,7 +27,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
   if ( regularize ) {
     scaleType <- attr(regularize, "scaleType")
     scaleType <- if ( is.null(scaleType) ) "full" else scaleType
-    if ( is.null(regHyperPar) ) regHyperPar <- controlREG(data, K, scaleType = scaleType)
+    if ( is.null(regHyperPar) ) regHyperPar <- ctrlREG(data, K, scaleType = scaleType)
     class(regHyperPar) <- "EM"
   }
   #------------------------------------------------------------------
@@ -73,7 +73,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
   if ( any( table(mclust::map(z)) <= V ) ) {
     if ( !regularize ) regularize <- TRUE
     if ( is.null(regHyperPar) ) {
-      regHyperPar <- controlREG(data, K)
+      regHyperPar <- ctrlREG(data, K)
       class(regHyperPar) <- "EM"
     }
   }
@@ -117,7 +117,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
       if ( firstIt ) START <- NULL else {
         START <- structure(Start[,,j], critOut = critOut[j], sigma = sigma[,,j])
       }
-      Nj <- pro[j]*N
+      Nj <- pro[j]*n
 
       if ( regularize ) {
         Sj <- Scale + Nj*temp$S[,,j]
@@ -128,7 +128,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
 
       out <- switch(search,
                     "step-forw" = try(
-                      searchGGMStepwise_f(S = Sj, N = N, model = model, pro = Nj/N, start = START,
+                      searchGGMStepwise_f(S = Sj, n = n, model = model, pro = Nj/n, start = START,
                                                  penalty = penalty, beta = beta,
                                                  regularize = regularize, regHyperPar = regHyperPar,
                                                  ctrlSTEP = ctrlSTEP, ctrlICF = ctrlICF, parallel = parallel,
@@ -137,7 +137,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
                       silent = ctrlEM$printMsg),
                     #
                     "step-back" = try(
-                      searchGGMStepwise_b(S = Sj, N = N, model = model, pro = Nj/N, start = START,
+                      searchGGMStepwise_b(S = Sj, n = n, model = model, pro = Nj/n, start = START,
                                                  penalty = penalty, beta = beta,
                                                  regularize = regularize, regHyperPar = regHyperPar,
                                                  ctrlSTEP = ctrlSTEP, ctrlICF = ctrlICF, parallel = parallel,
@@ -146,7 +146,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
                       silent = !ctrlEM$printMsg),
                     #
                     "ga" = try(
-                      searchGGMGA(S = Sj, N = N, model = model, pro = Nj/N, start = START,
+                      searchGGMGA(S = Sj, n = n, model = model, pro = Nj/n, start = START,
                                          penalty = penalty, beta = beta,
                                          regularize = regularize, regHyperPar = regHyperPar,
                                          ctrlGA = ctrlGA, ctrlICF = ctrlICF, parallel = parallel,
@@ -243,7 +243,7 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
       } else {
         Sj <- temp$S[,,j]
       }
-      tmp <- fitGGM( data = NULL, graph = graph[,,j], S = Sj, model = model, N = Nj,
+      tmp <- fitGGM( data = NULL, graph = graph[,,j], S = Sj, model = model, n = Nj,
                      ctrlICF = ctrlICF, regularize = regularize, regHyperPar = regHyperPar )
       sigma[,,j] <- tmp$sigma
       omega[,,j] <- tmp$omega
@@ -258,13 +258,13 @@ emMixGGM <- function( data, K, search = c("step-forw", "step-back", "ga"),
   totPar <- V*K + V*K + nCov + (K-1)
   out <- list(parameters = list(tau = pro, mu = mu, sigma = sigma, omega = omega), 
               graph = graph,
-              N = N, V = V, K = K, 
+              n = n, V = V, K = K, 
               loglik = loglik, loglikPen = loglikPen, loglikReg = llk,
               nPar = c(depPar = sum(nCov), totPar = totPar), 
               z = z, classification = mclust::map(z),
               penalty = attr(penalty, "type") )
   attr(out, "info") <- list(iter = iter, 
-                            control = ctrlEM[1:2], 
+                            ctrl = ctrlEM[1:2], 
                             search = search)
   return(out)
 }

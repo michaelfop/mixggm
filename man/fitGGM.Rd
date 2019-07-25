@@ -9,7 +9,7 @@ Estimation of a Gaussian graphical model given the graph structure corresponding
 
 \usage{
 fitGGM(data = NULL,
-      S = NULL, N = NULL,
+      S = NULL, n = NULL,
       graph,
       model = c("covariance", "concentration"),
       start = NULL,
@@ -24,7 +24,7 @@ fitGGM(data = NULL,
 
 \item{S}{The sample covariance matrix of the data. If \code{S = NULL}, the maximum likelihood estimate of the covariance matrix is used in the estimation of the graphical model.}
 
-\item{N}{The number of observations. If \code{data = NULL} and \code{S} is provided in input, \code{N} must be provided in input as well.}
+\item{n}{The number of observations. If \code{data = NULL} and \code{S} is provided in input, \code{n} must be provided in input as well.}
 
 \item{graph}{A square symmetric binary adjacency matrix corresponding to the association structure of the graph. See "Details".}
 
@@ -53,7 +53,7 @@ The output is a list containing:
 \item{model}{Estimated model type, whether \code{"covariance"} or \code{"concentration"}.}
 \item{loglik}{Value of the maximized log-likelihood.}
 \item{nPar}{Number of estimated parameters.}
-\item{N}{Number of observations.}
+\item{n}{Number of observations.}
 \item{V}{Number of variables, corresponding to the number of nodes in the graph.}
 \item{iter}{Number of iterations for the algorithm to converge.}
 }

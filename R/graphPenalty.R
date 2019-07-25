@@ -14,7 +14,7 @@ graphPenalty <- function(penalty = c("bic", "ebic", "erdos", "power"), ...)
                      bic = function(graph, beta = NULL, n, ...) # TODO: LS
                        # BIC type penalty
                      {
-                       NN <- get("N", envir = parent.frame())
+                       NN <- get("n", envir = parent.frame())
                        E <- sum(graph)/2
                        0.5*log(NN) * E
                      },
@@ -25,7 +25,7 @@ graphPenalty <- function(penalty = c("bic", "ebic", "erdos", "power"), ...)
                          if ( beta > 1 | beta < 0 ) stop("The beta hyperparameter must be in the interval [0,1] for the ebic penalty function")
                        }
                        V <- ncol(graph)
-                       NN <- get("N", envir = parent.frame())
+                       NN <- get("n", envir = parent.frame())
                        if ( is.null(beta) ) beta <- 1
                        E <- sum(graph)/2
                        0.5*log(NN)*E + 2*beta*log(V)*E
@@ -45,7 +45,7 @@ graphPenalty <- function(penalty = c("bic", "ebic", "erdos", "power"), ...)
                      power = function(graph, beta = NULL)
                        # power law on degree
                      {
-                       NN <- get("N", envir = parent.frame())
+                       NN <- get("n", envir = parent.frame())
                        if ( is.null(beta) ) beta <- 2*log(NN)
                        deg <- rowSums(graph)
                        + beta * sum( log(deg + 1) )

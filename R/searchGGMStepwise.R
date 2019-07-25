@@ -4,7 +4,7 @@
 # Functions for performing graph search using a forward stepwise algorithm
 # in mixtures of Gaussian graphical models
 
-startStepwise <- function(S, Nk, N, model, penalty, beta, regularize, regHyperPar, ctrlICF)
+startStepwise <- function(S, Nk, n, model, penalty, beta, regularize, regHyperPar, ctrlICF)
   # initialize graph in stepwise search
 {
   V <- ncol(S)
@@ -38,7 +38,7 @@ startStepwise <- function(S, Nk, N, model, penalty, beta, regularize, regHyperPa
     startIcf <- S/log2(V)
     startIcf[ A == 0 ] <- 0
     diag(startIcf) <- diag(S)
-    fit[[s]] <- fitGGM(data = NULL, S = S, graph = A, model = model, N = Nk, start = startIcf, ctrlICF = ctrlICF,
+    fit[[s]] <- fitGGM(data = NULL, S = S, graph = A, model = model, n = Nk, start = startIcf, ctrlICF = ctrlICF,
                        regularize = regularize, regHyperPar = regHyperPar)
     crit[s] <- fit[[s]]$loglik - penalty(A, beta = beta)
   }
@@ -52,7 +52,7 @@ startStepwise <- function(S, Nk, N, model, penalty, beta, regularize, regHyperPa
 
 
 
-searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
+searchGGMStepwise_f <- function(S, n, model = c("covariance", "concentration"),
                                 pro = NULL, start = NULL,
                                 regularize = FALSE, regHyperPar = NULL,
                                 penalty = graphPenalty(), beta = NULL,
@@ -67,7 +67,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
   # if ( is.null(penPar) ) penPar <- list(N = N)
 
   # we need the weighted N in the profile loglikelihood
-  Nk <- if ( is.null(pro) ) N else N*pro
+  Nk <- if ( is.null(pro) ) n else n*pro
   model <- match.arg( model, c("covariance", "concentration") )
 
   if ( is.null(dimnames(S)) ) {
@@ -93,7 +93,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
 
   # initialization ---------------------------------------------------------
   if ( is.null(start) ) {
-    startStep <- startStepwise(S, Nk, N, model, penalty, beta, regularize, regHyperPar, ctrlICF)
+    startStep <- startStepwise(S, Nk, n, model, penalty, beta, regularize, regHyperPar, ctrlICF)
     adjMat0 <- startStep$adjMat
     Sigma <- startStep$Sigma
     Omega <- startStep$Omega
@@ -105,7 +105,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
       if ( !is.matrix(start) | !zeroOne )
         stop("You have to provide a proper adjacency matrix")
       adjMat0 <- start
-      fit <- fitGGM(graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlICF = ctrlICF,
+      fit <- fitGGM(graph = adjMat0, S = S, n = Nk, model = model, start = S, ctrlICF = ctrlICF,
                     regularize = regularize, regHyperPar = regHyperPar)
       Sigma <- fit$sigma
       Omega <- fit$omega
@@ -117,7 +117,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
       critVal <- attr(start, "critOut")
       adjMat0 <- start
       attributes(adjMat0)[c("sigma", "critOut")] <- NULL
-      fit <- fitGGM(data = NULL, graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlICF = ctrlICF,
+      fit <- fitGGM(data = NULL, graph = adjMat0, S = S, n = Nk, model = model, start = S, ctrlICF = ctrlICF,
                     regularize = regularize, regHyperPar = regHyperPar)
       Sigma <- fit$sigma
       Omega <- fit$omega  # update matrices
@@ -158,7 +158,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
         a <- adjMat
         a[i,j] <- a[j,i] <- 1
         #
-        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
+        fit <- fitGGM(data = NULL, graph = a, S = S, n = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
                       regularize = regularize, regHyperPar = regHyperPar)
         #
         val <- fit$loglik - penalty(a, beta = beta)
@@ -227,7 +227,7 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
         a <- adjMat
         a[i,j] <- a[j,i] <- 0
         #
-        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
+        fit <- fitGGM(data = NULL, graph = a, S = S, n = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
                       regularize = regularize, regHyperPar = regHyperPar)
         #
         val <- fit$loglik - penalty(a, beta = beta)
@@ -296,11 +296,11 @@ searchGGMStepwise_f <- function(S, N, model = c("covariance", "concentration"),
 }
 
 
-searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
+searchGGMStepwise_b <- function(S, n, model = c("covariance", "concentration"),
                                 pro = NULL, start = NULL,
                                 regularize = FALSE, regHyperPar = NULL,
                                 penalty = graphPenalty(), beta = NULL,
-                                ctrlSTEP = controlSTEP(), ctrlICF = controlICF(),
+                                ctrlSTEP = ctrlSTEP(), ctrlICF = ctrlICF(),
                                 parallel = FALSE, verbose = FALSE, occam = NULL)
   # Function for searching the best structure of a graph using a backward stepwise search.
 {
@@ -311,7 +311,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
   # if ( is.null(penPar) ) penPar <- list(N = N)
 
   # we need the weighted N in the profile loglikelihood
-  Nk <- if ( is.null(pro) ) N else N*pro
+  Nk <- if ( is.null(pro) ) n else n*pro
   model <- match.arg( model, c("covariance", "concentration") )
 
   if ( is.null(dimnames(S)) ) {
@@ -341,8 +341,8 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
     adjMat0 <- matrix(1, V,V)
     diag(adjMat0) <- 0
     Sigma <- S
-    val <- profileloglik(Sigma, S, N)
-    Omega <- val$inv
+    val <- profileloglik(Sigma, S, Nk)
+    Omega <- val$omega
     critVal <- val$loglik - penalty(adjMat0, beta = beta)
   } else {
     if ( is.null(attr(start, "critOut")) ) attr(start, "critOut") <- NA
@@ -351,7 +351,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
       if ( !is.matrix(start) | !zeroOne )
         stop("You have to provide a proper adjacency matrix")
       adjMat0 <- start
-      fit <- fitGGM(graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlICF = ctrlICF,
+      fit <- fitGGM(graph = adjMat0, S = S, n = Nk, model = model, start = S, ctrlICF = ctrlICF,
                     regularize = regularize, regHyperPar = regHyperPar)
       Sigma <- fit$sigma
       Omega <- fit$omega
@@ -363,7 +363,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
       critVal <- attr(start, "critOut")
       adjMat0 <- start
       attributes(adjMat0)[c("sigma", "critOut")] <- NULL
-      fit <- fitGGM(data = NULL, graph = adjMat0, S = S, N = Nk, model = model, start = S, ctrlICF = ctrlICF,
+      fit <- fitGGM(data = NULL, graph = adjMat0, S = S, n = Nk, model = model, start = S, ctrlICF = ctrlICF,
                     regularize = regularize, regHyperPar = regHyperPar)
       Sigma <- fit$sigma
       Omega <- fit$omega  # update matrices
@@ -405,7 +405,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
         a <- adjMat
         a[i,j] <- a[j,i] <- 0
         #
-        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
+        fit <- fitGGM(data = NULL, graph = a, S = S, n = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
                       regularize = regularize, regHyperPar = regHyperPar)
         #
         val <- fit$loglik - penalty(a, beta = beta)
@@ -474,7 +474,7 @@ searchGGMStepwise_b <- function(S, N, model = c("covariance", "concentration"),
         a <- adjMat
         a[i,j] <- a[j,i] <- 1
         #
-        fit <- fitGGM(data = NULL, graph = a, S = S, N = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
+        fit <- fitGGM(data = NULL, graph = a, S = S, n = Nk, model = model, start = Sigma, ctrlICF = ctrlICF,
                       regularize = regularize, regHyperPar = regHyperPar)
         #
         val <- fit$loglik - penalty(a, beta = beta)

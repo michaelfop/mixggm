@@ -7,7 +7,7 @@
 fitnessGGM <- function(string, par)
   # fitness function to be passed in the genetic algorithm
 {
-  N <- par$N
+  n <- par$n
 
   # adjacency matrix ------------------------------------------------
 
@@ -30,7 +30,7 @@ fitnessGGM <- function(string, par)
   #------------------------------------------------------------------
 
   # fit covariance graph --------------------------------------------
-  fit <- fitGGM(data = NULL, graph = adjMat, S = par$S, N = par$Nk, model = par$model, start = start,
+  fit <- fitGGM(data = NULL, graph = adjMat, S = par$S, n = par$Nk, model = par$model, start = start,
                 ctrlICF = par$ctrlICF, regularize = par$regularize, regHyperPar = par$regHyperPar)
   #------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ fitnessGGM <- function(string, par)
 
 
 
-searchGGMGA <- function(S, N, model = c("covariance", "concentration"),
+searchGGMGA <- function(S, n, model = c("covariance", "concentration"),
                         pro = NULL, start = NULL,
                         regularize = FALSE, regHyperPar = NULL,
                         penalty = graphPenalty(), beta = NULL,
@@ -56,7 +56,7 @@ searchGGMGA <- function(S, N, model = c("covariance", "concentration"),
   model <- match.arg( model, c("covariance", "concentration") )
 
   # we need the weighted N in the profile loglikelihood for the EM algorithm
-  if ( is.null(pro) ) Nk <- N else Nk <- N*pro
+  if ( is.null(pro) ) Nk <- n else Nk <- n*pro
 
   if ( is.null(dimnames(S)) ) {
     varnames <- paste0("V", 1:V)
@@ -101,7 +101,7 @@ searchGGMGA <- function(S, N, model = c("covariance", "concentration"),
 
   # search the best graph --------------------------------------------------
   # parameters list
-  par <- list(N = N, Nk = Nk, V = V, S = S, pro = pro, allPairs = allPairs,
+  par <- list(n = n, Nk = Nk, V = V, S = S, pro = pro, allPairs = allPairs,
               penalty = penalty, beta = beta, model = model,
               regularize = regularize, regHyperPar = regHyperPar, ctrlICF = ctrlICF)
 
@@ -138,7 +138,7 @@ searchGGMGA <- function(S, N, model = c("covariance", "concentration"),
   diag(start) <- diag(S)
 
   dimnames(graph) <- list(varnames, varnames)
-  fit <- fitGGM(data = NULL, graph = graph, S = S, N = Nk, model = model, regularize = regularize,
+  fit <- fitGGM(data = NULL, graph = graph, S = S, n = Nk, model = model, regularize = regularize,
                 regHyperPar = regHyperPar, ctrlICF = ctrlICF, start = start)
   #------------------------------------------------------------------------
 

@@ -70,7 +70,7 @@ Function \code{controlGA} sets parameters of the genetic algorithm used for grap
 Function \code{controlEM} controls standard parameters of the structural-EM algorithm.
 
 Function \code{controlREG} is used to set hyperparameters of the conjugate prior on the covariance matrix for Bayesian regularization in Gaussian covariance graph models. The function creates a list of hyperparameters to be given in input in argument \code{regHyperPar} of functions \code{fitGGM}, \code{searchGGM} and \code{mixGGM}.
-If not provided in input, the scale hyperparameter is computed on the data via the sample covariance matrix according to the argument \code{scaleType}. If \code{scaleType = "full"}, the scale matrix is proportional to the data covariance matrix; if \code{scaleType = "fixed"}, the scale matrix has determinant equal to \eqn{(\frac{0.001}{K})^{(1/V)}}{(0.001/K)^(1/V)} (Baudry, Celeux, 2015; Fop et al. 2018); if \code{scaleType = "one"} the scale matrix has determinant 1; if \code{scaleType = "diag"} the scale matrix is diagonal. Note that in the case \code{V > N}, if not provided in input the scale matrix is forced to be diagonal.
+If not provided in input, the scale hyperparameter is computed on the data via the sample covariance matrix according to the argument \code{scaleType}. If \code{scaleType = "full"}, the scale matrix is proportional to the data covariance matrix; if \code{scaleType = "fixed"}, the scale matrix has determinant equal to \eqn{(\frac{0.001}{K})^{(1/V)}}{(0.001/K)^(1/V)} (Baudry, Celeux, 2015; Fop et al. 2018); if \code{scaleType = "one"} the scale matrix has determinant 1; if \code{scaleType = "diag"} the scale matrix is diagonal. Note that in the case \code{V > n}, if not provided in input, the scale matrix is forced to be diagonal.
 The hyperparameter \code{psi} controlling the degrees of freedom is set to \code{V + 2} by default.
 }
 
@@ -92,13 +92,13 @@ mod1 <- searchGGM(banknote[,-1], model = "concentration", search = "ga",
 # regularization
 library(MASS)
 V <- 10
-N <- 20
+n <- 20
 mu <- rep(0, V)
 sigma <- matrix(0.9, V,V)
 diag(sigma) <- 1
-x <- cbind( MASS::mvrnorm(N, mu, sigma),
-            MASS::mvrnorm(N, mu, sigma),
-            MASS::mvrnorm(N, mu, sigma))  # high-dimensional data V = 30, N = 20
+x <- cbind( MASS::mvrnorm(n, mu, sigma),
+            MASS::mvrnorm(n, mu, sigma),
+            MASS::mvrnorm(n, mu, sigma))  # high-dimensional data V = 30, n = 20
 #
 hyperPar <- controlREG(x, K = 1, scaleType = "diag")
 mod2 <- searchGGM(x, model = "covariance", penalty = "ebic")   # throws an error
@@ -110,7 +110,7 @@ plot(mod2, "adjacency")
 # occam's window
 library(MASS)
 V <- 20
-N <- 500
+n <- 500
 mu <- rep(0, V)
 sigma <- matrix(0.9, V,V)
 diag(sigma) <- 1
@@ -118,11 +118,11 @@ edges <- rbinom(choose(V,2), 1, 0.3)
 A <- matrix(0, V,V)
 A[lower.tri(A)] <- edges
 A <- A + t(A)
-fit <- fitGGM(S = sigma, N = N, graph = A, model = "concentration",
+fit <- fitGGM(S = sigma, n = n, graph = A, model = "concentration",
               ctrlICF = controlICF(tol = 1e-06))
 sigma <- fit$sigma
 #
-x <- MASS:::mvrnorm(N, mu, sigma)
+x <- MASS:::mvrnorm(n, mu, sigma)
 #
 mod3 <- searchGGM(x, model = "concentration", search = "step-back",
                   ctrlSTEP = controlSTEP(occamAdd = 5, occamRem = 5))

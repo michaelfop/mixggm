@@ -8,7 +8,7 @@ Graph structure search and estimation for Gaussian covariance and concentration 
 
 \usage{
 searchGGM(data = NULL,
-          S = NULL, N = NULL,
+          S = NULL, n = NULL,
           model = c("covariance", "concentration"),
           search = c("step-forw", "step-back", "ga"),
           penalty = c("bic", "ebic", "erdos", "power"),
@@ -25,7 +25,7 @@ searchGGM(data = NULL,
 
 \item{S}{The sample covariance matrix of the data. If \code{S = NULL}, the maximum likelihood estimate of the covariance matrix is used in the estimation of the graphical model.}
 
-\item{N}{The number of observations. If \code{data = NULL} and \code{S} is provided in input, \code{N} must be provided in input as well.}
+\item{n}{The number of observations. If \code{data = NULL} and \code{S} is provided in input, \code{n} must be provided in input as well.}
 
 \item{model}{The type of Gaussian graphical model. Default is \code{"covariance"}. See "Details".}
 
@@ -66,7 +66,7 @@ The output is a list containing:
 \item{loglikPen}{Value of the maximized penalized log-likelihood.}
 \item{loglik}{Value of the maximized log-likelihood.}
 \item{nPar}{Number of estimated parameters.}
-\item{N}{Number of observations.}
+\item{n}{Number of observations.}
 \item{V}{Number of variables, corresponding to the number of nodes in the graph.}
 \item{penalty}{The type of penalty on the graph structure.}
 \item{search}{The search method used for graph structure search.}
@@ -107,7 +107,7 @@ plot(mod2)
 # fit concentration graph model with backward-stepwise structure search
 # with a covariance matrix in input
 data(ability.cov)
-mod3 <- searchGGM(S = ability.cov$cov, N = ability.cov$n.obs,
+mod3 <- searchGGM(S = ability.cov$cov, n = ability.cov$n.obs,
                   model = "concentration", search = "step-back")
 mod3
 mod3$graph
@@ -117,11 +117,11 @@ plot(mod3)
 \dontrun{
 
 # generate data from a Markov model
-N <- 1000
+n <- 1000
 V <- 20
-dat <- matrix(NA, N, V)
-dat[,1] <- rnorm(N)
-for ( j in 2:V ) dat[,j] <- dat[,j-1] + rnorm(N, sd = 0.5)
+dat <- matrix(NA, n, V)
+dat[,1] <- rnorm(n)
+for ( j in 2:V ) dat[,j] <- dat[,j-1] + rnorm(n, sd = 0.5)
 mod4 <- searchGGM(data = dat, model = "concentration")        # recover the model
 plot(mod4, what = "adjacency")
 
